@@ -15,20 +15,25 @@ html {
 
 
 body {
+
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    background: var(--bg);
+    background:
+        var(--bg);
 
-    color: var(--text);
+    color:
+        var(--text);
 
-    min-height: 100vh;
+    min-height:
+        100vh;
 
     transition:
         background 0.25s ease,
         color 0.25s ease;
+
 }
 
 
@@ -91,8 +96,7 @@ body.light-theme {
     min-height: 64px;
 
     padding:
-        12px
-        20px;
+        12px 20px;
 
     display: flex;
 
@@ -107,7 +111,8 @@ body.light-theme {
     background:
         rgba(8, 11, 16, 0.92);
 
-    position: sticky;
+    position:
+        sticky;
 
     top: 0;
 
@@ -115,6 +120,7 @@ body.light-theme {
 
     backdrop-filter:
         blur(12px);
+
 }
 
 
@@ -132,22 +138,28 @@ body.light-theme .top-bar {
 
 .brand {
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
 }
 
 
 .valtivor-logo {
 
-    width: 120px;
+    width:
+        120px;
 
-    max-height: 42px;
+    max-height:
+        42px;
 
-    object-fit: contain;
+    object-fit:
+        contain;
 
-    display: block;
+    display:
+        block;
 
 }
 
@@ -158,28 +170,33 @@ body.light-theme .top-bar {
 
 .top-actions {
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    gap: 8px;
+    gap:
+        8px;
 
 }
 
 
 /* =============================== */
-/* INSTALL BUTTON */
+/* INSTALL */
 /* =============================== */
 
 .install-btn {
 
-    display: block;
+    display:
+        block;
 
     border:
         1px solid
         var(--border);
 
-    border-radius: 10px;
+    border-radius:
+        10px;
 
     background:
         var(--card);
@@ -187,15 +204,17 @@ body.light-theme .top-bar {
     color:
         var(--text);
 
-    cursor: pointer;
+    cursor:
+        pointer;
 
     padding:
-        10px
-        14px;
+        10px 14px;
 
-    font-size: 12px;
+    font-size:
+        12px;
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
     transition:
         0.2s ease;
@@ -223,15 +242,18 @@ body.light-theme .top-bar {
 
 .theme-btn {
 
-    width: 40px;
+    width:
+        40px;
 
-    height: 40px;
+    height:
+        40px;
 
     border:
         1px solid
         var(--border);
 
-    border-radius: 10px;
+    border-radius:
+        10px;
 
     background:
         var(--card);
@@ -239,10 +261,8 @@ body.light-theme .top-bar {
     color:
         var(--text);
 
-    cursor: pointer;
-
-    transition:
-        0.2s ease;
+    cursor:
+        pointer;
 
 }
 
@@ -261,18 +281,17 @@ body.light-theme .top-bar {
 
 .container {
 
-    width: min(
-        1100px,
-        calc(100% - 32px)
-    );
+    width:
+        min(
+            1100px,
+            calc(100% - 32px)
+        );
 
     margin:
         0 auto;
 
     padding:
-        50px
-        0
-        80px;
+        50px 0 80px;
 
 }
 
@@ -284,9 +303,7 @@ body.light-theme .top-bar {
 .hero {
 
     padding:
-        35px
-        0
-        50px;
+        35px 0 50px;
 
 }
 
@@ -296,9 +313,11 @@ body.light-theme .top-bar {
     color:
         var(--green);
 
-    font-size: 11px;
+    font-size:
+        11px;
 
-    font-weight: bold;
+    font-weight:
+        bold;
 
     letter-spacing:
         2px;
@@ -342,16 +361,8 @@ body.light-theme .top-bar {
 
 
 /* =============================== */
-/* GENERAL SECTIONS */
+/* CARDS */
 /* =============================== */
-
-section {
-
-    margin-bottom:
-        32px;
-
-}
-
 
 .info-card,
 .focus-card,
@@ -372,11 +383,14 @@ section {
     padding:
         28px;
 
+    margin-bottom:
+        32px;
+
 }
 
 
 /* =============================== */
-/* INFO CARD */
+/* STEPS */
 /* =============================== */
 
 .info-card h2 {
@@ -452,7 +466,7 @@ section {
 
 
 /* =============================== */
-/* FOCUS CARD */
+/* FOCUS */
 /* =============================== */
 
 .focus-card {
@@ -500,7 +514,7 @@ section {
 
 
 /* =============================== */
-/* SECTION HEADING */
+/* HEADINGS */
 /* =============================== */
 
 .section-heading {
@@ -593,7 +607,7 @@ section {
 
 
 /* =============================== */
-/* FORM */
+/* INPUTS */
 /* =============================== */
 
 .creator-grid {
@@ -602,10 +616,7 @@ section {
         grid;
 
     grid-template-columns:
-        2fr
-        1fr
-        1fr
-        1fr;
+        2fr 1fr 1fr 1fr;
 
     gap:
         14px;
@@ -647,13 +658,14 @@ section {
 input,
 select {
 
-    width: 100%;
+    width:
+        100%;
 
-    min-height: 44px;
+    min-height:
+        44px;
 
     padding:
-        10px
-        12px;
+        10px 12px;
 
     border:
         1px solid
@@ -711,8 +723,7 @@ input::placeholder {
         #061009;
 
     padding:
-        11px
-        16px;
+        11px 16px;
 
     border-radius:
         10px;
@@ -723,19 +734,16 @@ input::placeholder {
     cursor:
         pointer;
 
-    transition:
-        0.2s ease;
-
 }
 
 
 .primary-btn:hover {
 
-    transform:
-        translateY(-1px);
-
     opacity:
         0.9;
+
+    transform:
+        translateY(-1px);
 
 }
 
@@ -753,8 +761,7 @@ input::placeholder {
         var(--text);
 
     padding:
-        10px
-        14px;
+        10px 14px;
 
     border-radius:
         10px;
@@ -861,10 +868,7 @@ input::placeholder {
         grid;
 
     grid-template-columns:
-        2fr
-        1fr
-        1fr
-        1fr;
+        2fr 1fr 1fr 1fr;
 
     gap:
         12px;
@@ -1015,8 +1019,7 @@ input::placeholder {
 .task-meta span {
 
     padding:
-        4px
-        8px;
+        4px 8px;
 
     border-radius:
         6px;
@@ -1032,6 +1035,57 @@ input::placeholder {
 
 }
 
+
+/* =============================== */
+/* COUNTDOWN */
+/* =============================== */
+
+.countdown {
+
+    font-weight:
+        bold;
+
+    letter-spacing:
+        0.3px;
+
+}
+
+
+.countdown.normal {
+
+    color:
+        var(--green);
+
+}
+
+
+.countdown.soon {
+
+    color:
+        var(--yellow);
+
+}
+
+
+.countdown.overdue {
+
+    color:
+        var(--danger);
+
+}
+
+
+.countdown.completed-countdown {
+
+    color:
+        var(--muted);
+
+}
+
+
+/* =============================== */
+/* PRIORITY */
+/* =============================== */
 
 .task-meta .priority-high {
 
@@ -1057,29 +1111,9 @@ input::placeholder {
 }
 
 
-.task-meta .deadline.overdue {
-
-    color:
-        var(--danger);
-
-}
-
-
-.task-meta .deadline.today {
-
-    color:
-        var(--yellow);
-
-}
-
-
-.task-meta .deadline.upcoming {
-
-    color:
-        var(--green);
-
-}
-
+/* =============================== */
+/* TASK ACTIONS */
+/* =============================== */
 
 .task-actions {
 
@@ -1099,8 +1133,7 @@ input::placeholder {
 .delete-btn {
 
     padding:
-        8px
-        10px;
+        8px 10px;
 
     border:
         1px solid
@@ -1153,8 +1186,7 @@ input::placeholder {
         center;
 
     padding:
-        50px
-        20px;
+        50px 20px;
 
     border:
         1px dashed
@@ -1375,8 +1407,7 @@ input::placeholder {
     .top-bar {
 
         padding:
-            10px
-            12px;
+            10px 12px;
 
     }
 
@@ -1392,8 +1423,7 @@ input::placeholder {
     .install-btn {
 
         padding:
-            9px
-            10px;
+            9px 10px;
 
         font-size:
             11px;
@@ -1415,10 +1445,7 @@ input::placeholder {
     .container {
 
         width:
-            min(
-                100% - 20px,
-                1100px
-            );
+            calc(100% - 20px);
 
         padding-top:
             30px;
@@ -1429,9 +1456,7 @@ input::placeholder {
     .hero {
 
         padding:
-            20px
-            0
-            35px;
+            20px 0 35px;
 
     }
 
@@ -1499,13 +1524,19 @@ input::placeholder {
         align-items:
             flex-start;
 
+        flex-direction:
+            column;
+
     }
 
 
     .task-actions {
 
+        width:
+            100%;
+
         flex-direction:
-            column;
+            row;
 
     }
 
