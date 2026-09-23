@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -28,14 +27,11 @@
         rel="stylesheet"
         href="style.css"
     >
-
 </head>
 
 <body>
 
-    <!-- ===============================
-         TOP BAR
-    ================================ -->
+    <!-- TOP BAR -->
 
     <div class="top-bar">
 
@@ -72,13 +68,11 @@
     </div>
 
 
-    <!-- ===============================
-         MAIN CONTENT
-    ================================ -->
+    <!-- MAIN -->
 
     <main class="container">
 
-        <!-- HEADER -->
+        <!-- HERO -->
 
         <header class="hero">
 
@@ -100,9 +94,7 @@
         </header>
 
 
-        <!-- ===============================
-             HOW TO USE
-        ================================ -->
+        <!-- HOW TO USE -->
 
         <section class="card how-to">
 
@@ -141,9 +133,7 @@
         </section>
 
 
-        <!-- ===============================
-             FOCUS CARD
-        ================================ -->
+        <!-- FOCUS -->
 
         <section class="focus-card">
 
@@ -167,66 +157,34 @@
         </section>
 
 
-        <!-- ===============================
-             DASHBOARD
-        ================================ -->
+        <!-- DASHBOARD -->
 
         <section class="dashboard">
 
             <div class="stat-card">
-
-                <span>
-                    TOTAL
-                </span>
-
-                <strong id="total-tasks">
-                    0
-                </strong>
-
+                <span>TOTAL</span>
+                <strong id="total-tasks">0</strong>
             </div>
 
             <div class="stat-card">
-
-                <span>
-                    COMPLETED
-                </span>
-
-                <strong id="completed-tasks">
-                    0
-                </strong>
-
+                <span>COMPLETED</span>
+                <strong id="completed-tasks">0</strong>
             </div>
 
             <div class="stat-card">
-
-                <span>
-                    PENDING
-                </span>
-
-                <strong id="pending-tasks">
-                    0
-                </strong>
-
+                <span>PENDING</span>
+                <strong id="pending-tasks">0</strong>
             </div>
 
             <div class="stat-card">
-
-                <span>
-                    OVERDUE
-                </span>
-
-                <strong id="overdue-tasks">
-                    0
-                </strong>
-
+                <span>OVERDUE</span>
+                <strong id="overdue-tasks">0</strong>
             </div>
 
         </section>
 
 
-        <!-- ===============================
-             TASK CREATOR
-        ================================ -->
+        <!-- TASK CREATOR -->
 
         <section class="card">
 
@@ -355,9 +313,7 @@
         </section>
 
 
-        <!-- ===============================
-             PROGRESS
-        ================================ -->
+        <!-- PROGRESS -->
 
         <section class="card">
 
@@ -394,9 +350,7 @@
         </section>
 
 
-        <!-- ===============================
-             TASK LIST
-        ================================ -->
+        <!-- TASK LIST -->
 
         <section class="card">
 
@@ -423,8 +377,6 @@
 
             </div>
 
-
-            <!-- SEARCH -->
 
             <div class="controls">
 
@@ -508,15 +460,11 @@
             </div>
 
 
-            <!-- TASKS WILL APPEAR HERE -->
-
             <div
                 id="task-list"
                 class="task-list"
             ></div>
 
-
-            <!-- EMPTY STATE -->
 
             <div
                 id="empty-state"
@@ -539,9 +487,7 @@
     </main>
 
 
-    <!-- ===============================
-         EDIT MODAL
-    ================================ -->
+    <!-- EDIT MODAL -->
 
     <div
         id="edit-modal"
@@ -687,16 +633,12 @@
     </div>
 
 
-    <!-- ===============================
-         JAVASCRIPT
-    ================================ -->
+    <!-- JAVASCRIPT -->
 
     <script src="app.js"></script>
 
 
-    <!-- ===============================
-         SERVICE WORKER
-    ================================ -->
+    <!-- SERVICE WORKER -->
 
     <script>
 
@@ -704,20 +646,18 @@
 
             window.addEventListener(
                 "load",
-                function() {
+                function () {
 
                     navigator.serviceWorker
-                        .register(
-                            "service-worker.js"
-                        )
-                        .then(function() {
+                        .register("service-worker.js")
+                        .then(function () {
 
                             console.log(
                                 "VTASKBASE service worker registered."
                             );
 
                         })
-                        .catch(function(error) {
+                        .catch(function (error) {
 
                             console.log(
                                 "Service worker registration failed:",
@@ -736,6 +676,4 @@
 </body>
 
 </html>
-
-
 

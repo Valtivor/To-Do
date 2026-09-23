@@ -1,3 +1,4 @@
+```javascript
 const CACHE_NAME = "vtaskbase-v2";
 
 const FILES_TO_CACHE = [
@@ -11,51 +12,91 @@ const FILES_TO_CACHE = [
     "./icons/icon-512.png"
 ];
 
-self.addEventListener("install", function(event) {
 
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(function(cache) {
-                return cache.addAll(FILES_TO_CACHE);
-            })
-    );
+// INSTALL
 
-});
+self.addEventListener(
+    "install",
+    function (event) {
 
-self.addEventListener("activate", function(event) {
+        event.waitUntil(
 
-    event.waitUntil(
-        caches.keys()
-            .then(function(cacheNames) {
+            caches.open(CACHE_NAME)
+                .then(function (cache) {
 
-                return Promise.all(
-                    cacheNames
-                        .filter(function(cacheName) {
-                            return cacheName !== CACHE_NAME;
-                        })
-                        .map(function(cacheName) {
-                            return caches.delete(cacheName);
-                        })
-                );
+                    return cache.addAll(
+                        FILES_TO_CACHE
+                    );
 
-            })
-    );
+                })
 
-});
+        );
 
-self.addEventListener("fetch", function(event) {
+    }
+);
 
-    event.respondWith(
-        caches.match(event.request)
-            .then(function(response) {
 
-                if (response) {
-                    return response;
-                }
+// ACTIVATE
 
-                return fetch(event.request);
+self.addEventListener(
+    "activate",
+    function (event) {
 
-            })
-    );
+        event.waitUntil(
 
-});
+            caches.keys()
+                .then(function (cacheNames) {
+
+                    return Promise.all(
+
+                        cacheNames
+                            .filter(function (cacheName) {
+
+                                return cacheName !==
+                                    CACHE_NAME;
+
+                            })
+                            .map(function (cacheName) {
+
+                                return caches.delete(
+                                    cacheName
+                                );
+
+                            })
+
+                    );
+
+                })
+
+        );
+
+    }
+);
+
+
+// FETCH
+
+self.addEventListener(
+    "fetch",
+    function (event) {
+
+        event.respondWith(
+
+            caches.match(event.request)
+                .then(function (response) {
+
+                    if (response) {
+                        return response;
+                    }
+
+                    return fetch(
+                        event.request
+                    );
+
+                })
+
+        );
+
+    }
+);
+```
