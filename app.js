@@ -22,10 +22,11 @@ const progressFill = document.getElementById("progress-fill");
 
 
 // ===============================
-// LOAD TASKS FROM LOCAL STORAGE
+// LOAD TASKS
 // ===============================
 
-let tasks = JSON.parse(localStorage.getItem("vtaskbase_tasks")) || [];
+let tasks =
+    JSON.parse(localStorage.getItem("vtaskbase_tasks")) || [];
 
 
 // ===============================
@@ -33,7 +34,12 @@ let tasks = JSON.parse(localStorage.getItem("vtaskbase_tasks")) || [];
 // ===============================
 
 function saveTasks() {
-    localStorage.setItem("vtaskbase_tasks", JSON.stringify(tasks));
+
+    localStorage.setItem(
+        "vtaskbase_tasks",
+        JSON.stringify(tasks)
+    );
+
 }
 
 
@@ -45,10 +51,15 @@ function renderTasks() {
 
     taskList.innerHTML = "";
 
+
     if (tasks.length === 0) {
+
         emptyMessage.style.display = "block";
+
     } else {
+
         emptyMessage.style.display = "none";
+
     }
 
 
@@ -58,19 +69,22 @@ function renderTasks() {
 
         li.className = "task-item";
 
+
         if (task.completed) {
+
             li.classList.add("completed");
+
         }
 
 
-        // Task information
+        // ===============================
+        // TASK INFORMATION
+        // ===============================
 
         const taskInfo = document.createElement("div");
 
         taskInfo.className = "task-info";
 
-
-        // Task name
 
         const taskName = document.createElement("div");
 
@@ -79,52 +93,64 @@ function renderTasks() {
         taskName.textContent = task.name;
 
 
-        // Details
-
         const taskDetails = document.createElement("div");
 
         taskDetails.className = "task-details";
 
 
-        // Priority badge
+        // ===============================
+        // PRIORITY
+        // ===============================
 
         const priorityBadge = document.createElement("span");
 
-        priorityBadge.className = "badge " + task.priority.toLowerCase();
+        priorityBadge.className =
+            "badge " + task.priority.toLowerCase();
 
-        priorityBadge.textContent = task.priority + " Priority";
+        priorityBadge.textContent =
+            task.priority + " Priority";
 
 
-        // Category badge
+        // ===============================
+        // AREA
+        // ===============================
 
         const categoryBadge = document.createElement("span");
 
         categoryBadge.className = "badge";
 
-        categoryBadge.textContent = task.category || "General";
+        categoryBadge.textContent =
+            task.category;
 
 
-        // Deadline badge
+        // ===============================
+        // DEADLINE
+        // ===============================
 
         const deadlineBadge = document.createElement("span");
 
         deadlineBadge.className = "badge";
 
         deadlineBadge.textContent =
-            task.deadline ? "Due: " + task.deadline : "No deadline";
+            task.deadline
+                ? "Due: " + task.deadline
+                : "No deadline";
 
 
         taskDetails.appendChild(priorityBadge);
+
         taskDetails.appendChild(categoryBadge);
+
         taskDetails.appendChild(deadlineBadge);
 
 
         taskInfo.appendChild(taskName);
+
         taskInfo.appendChild(taskDetails);
 
 
         // ===============================
-        // BUTTONS
+        // ACTION BUTTONS
         // ===============================
 
         const actions = document.createElement("div");
@@ -132,50 +158,68 @@ function renderTasks() {
         actions.className = "task-actions";
 
 
-        const completeBtn = document.createElement("button");
+        const completeBtn =
+            document.createElement("button");
 
         completeBtn.className = "complete-btn";
 
         completeBtn.textContent =
-            task.completed ? "Undo" : "Complete";
+            task.completed
+                ? "Undo"
+                : "Complete";
 
 
-        completeBtn.addEventListener("click", function() {
+        completeBtn.addEventListener(
+            "click",
+            function() {
 
-            task.completed = !task.completed;
+                task.completed =
+                    !task.completed;
 
-            saveTasks();
+                saveTasks();
 
-            renderTasks();
+                renderTasks();
 
-        });
+            }
+        );
 
 
-        const deleteBtn = document.createElement("button");
+        const deleteBtn =
+            document.createElement("button");
 
         deleteBtn.className = "delete-btn";
 
         deleteBtn.textContent = "Delete";
 
 
-        deleteBtn.addEventListener("click", function() {
+        deleteBtn.addEventListener(
+            "click",
+            function() {
 
-            tasks = tasks.filter(function(item) {
-                return item.id !== task.id;
-            });
+                tasks = tasks.filter(
+                    function(item) {
 
-            saveTasks();
+                        return item.id !== task.id;
 
-            renderTasks();
+                    }
+                );
 
-        });
+
+                saveTasks();
+
+                renderTasks();
+
+            }
+        );
 
 
         actions.appendChild(completeBtn);
+
         actions.appendChild(deleteBtn);
 
 
         li.appendChild(taskInfo);
+
         li.appendChild(actions);
 
 
@@ -185,6 +229,7 @@ function renderTasks() {
 
 
     updateDashboard();
+
 }
 
 
@@ -194,13 +239,18 @@ function renderTasks() {
 
 function addTask() {
 
-    const name = taskInput.value.trim();
+    const name =
+        taskInput.value.trim();
+
 
     if (name === "") {
 
         alert("Please enter a task.");
 
+        taskInput.focus();
+
         return;
+
     }
 
 
@@ -210,9 +260,9 @@ function addTask() {
 
         name: name,
 
-        priority: priorityInput.value,
+        category: categoryInput.value,
 
-        category: categoryInput.value.trim() || "General",
+        priority: priorityInput.value,
 
         deadline: deadlineInput.value,
 
@@ -223,20 +273,23 @@ function addTask() {
 
     tasks.push(newTask);
 
+
     saveTasks();
 
     renderTasks();
 
 
-    // Clear inputs
+    // ===============================
+    // RESET FORM
+    // ===============================
 
     taskInput.value = "";
 
-    categoryInput.value = "";
-
-    deadlineInput.value = "";
+    categoryInput.value = "Coding";
 
     priorityInput.value = "Medium";
+
+    deadlineInput.value = "";
 
 
     taskInput.focus();
@@ -250,90 +303,126 @@ function addTask() {
 
 function updateDashboard() {
 
-    const total = tasks.length;
-
-    const completed = tasks.filter(function(task) {
-        return task.completed;
-    }).length;
-
-    const pending = total - completed;
+    const total =
+        tasks.length;
 
 
-    totalTasks.textContent = total;
+    const completed =
+        tasks.filter(function(task) {
 
-    completedTasks.textContent = completed;
+            return task.completed;
 
-    pendingTasks.textContent = pending;
+        }).length;
 
 
-    // Calculate percentage
+    const pending =
+        total - completed;
+
+
+    totalTasks.textContent =
+        total;
+
+
+    completedTasks.textContent =
+        completed;
+
+
+    pendingTasks.textContent =
+        pending;
+
+
+    // ===============================
+    // PROGRESS
+    // ===============================
 
     let progress = 0;
 
+
     if (total > 0) {
-        progress = Math.round((completed / total) * 100);
+
+        progress =
+            Math.round(
+                (completed / total) * 100
+            );
+
     }
 
 
-    progressText.textContent = progress + "%";
+    progressText.textContent =
+        progress + "%";
 
-    progressFill.style.width = progress + "%";
+
+    progressFill.style.width =
+        progress + "%";
 
 }
 
 
 // ===============================
-// CLEAR ALL TASKS
+// CLEAR ALL
 // ===============================
 
-clearBtn.addEventListener("click", function() {
+clearBtn.addEventListener(
+    "click",
+    function() {
 
-    if (tasks.length === 0) {
-        return;
+        if (tasks.length === 0) {
+
+            return;
+
+        }
+
+
+        const confirmDelete =
+            confirm(
+                "Are you sure you want to delete all tasks?"
+            );
+
+
+        if (confirmDelete) {
+
+            tasks = [];
+
+            saveTasks();
+
+            renderTasks();
+
+        }
+
     }
-
-
-    const confirmDelete = confirm(
-        "Are you sure you want to delete all tasks?"
-    );
-
-
-    if (confirmDelete) {
-
-        tasks = [];
-
-        saveTasks();
-
-        renderTasks();
-
-    }
-
-});
+);
 
 
 // ===============================
 // ADD BUTTON
 // ===============================
 
-addBtn.addEventListener("click", addTask);
+addBtn.addEventListener(
+    "click",
+    addTask
+);
 
 
 // ===============================
-// PRESS ENTER TO ADD TASK
+// ENTER KEY
 // ===============================
 
-taskInput.addEventListener("keydown", function(event) {
+taskInput.addEventListener(
+    "keydown",
+    function(event) {
 
-    if (event.key === "Enter") {
-        addTask();
+        if (event.key === "Enter") {
+
+            addTask();
+
+        }
+
     }
-
-});
+);
 
 
 // ===============================
-// FIRST PAGE LOAD
+// START APP
 // ===============================
 
 renderTasks();
-

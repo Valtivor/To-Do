@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     font-family: Arial, sans-serif;
     background: #080b10;
@@ -11,45 +12,130 @@ body {
     min-height: 100vh;
 }
 
+
 .app {
-    width: 90%;
+    width: 92%;
     max-width: 1100px;
-    margin: 40px auto;
+    margin: 40px auto 70px;
 }
 
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 .header {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
+
 
 .brand {
     color: #35d07f;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    letter-spacing: 3px;
-    margin-bottom: 8px;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
 }
+
 
 .header h1 {
     font-size: 36px;
-    margin-bottom: 8px;
+    line-height: 1.2;
+    margin-bottom: 10px;
 }
+
 
 .subtitle {
     color: #8d96a3;
+    font-size: 15px;
 }
 
 
-/* DASHBOARD */
+/* =========================
+   HOW TO USE
+========================= */
+
+.how-to {
+    background: #10151d;
+    border: 1px solid #202833;
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+
+.guide-label {
+    color: #35d07f;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+.how-to h2,
+.creator-heading h2,
+.section-heading h2 {
+    font-size: 22px;
+    margin-top: 7px;
+}
+
+
+.how-to-header p,
+.creator-heading p {
+    color: #7f8996;
+    font-size: 14px;
+    margin-top: 7px;
+}
+
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 22px;
+}
+
+
+.step {
+    background: #0b1017;
+    border: 1px solid #202833;
+    border-radius: 13px;
+    padding: 18px;
+}
+
+
+.step-number {
+    color: #35d07f;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 13px;
+}
+
+
+.step h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+
+.step p {
+    color: #7f8996;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
 
 .dashboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 15px;
     margin-bottom: 25px;
 }
+
 
 .stat-card {
     background: #10151d;
@@ -58,30 +144,58 @@ body {
     padding: 22px;
 }
 
+
 .stat-card span {
     display: block;
     color: #8d96a3;
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 10px;
 }
+
 
 .stat-card strong {
     font-size: 30px;
 }
 
 
-/* FORM */
+/* =========================
+   TASK CREATOR
+========================= */
 
-.task-form {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr auto;
-    gap: 10px;
+.task-creator {
+    background: #10151d;
+    border: 1px solid #202833;
+    border-radius: 18px;
+    padding: 25px;
     margin-bottom: 25px;
 }
 
+
+.task-form {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.input-group label {
+    color: #8d96a3;
+    font-size: 12px;
+}
+
+
 input,
 select {
-    background: #10151d;
+    width: 100%;
+    background: #0b1017;
     color: white;
     border: 1px solid #28313d;
     border-radius: 10px;
@@ -89,55 +203,82 @@ select {
     outline: none;
 }
 
+
 input:focus,
 select:focus {
     border-color: #35d07f;
 }
 
-button {
+
+select {
+    cursor: pointer;
+}
+
+
+#add-btn {
+    margin-top: 15px;
+    background: #35d07f;
+    color: #06100a;
     border: none;
     cursor: pointer;
     border-radius: 10px;
-    padding: 14px 18px;
+    padding: 14px 20px;
     font-weight: bold;
 }
 
-#add-btn {
-    background: #35d07f;
-    color: #06100a;
-}
 
 #add-btn:hover {
     opacity: 0.85;
 }
 
 
-/* PROGRESS */
+/* =========================
+   PROGRESS
+========================= */
 
 .progress-section {
     background: #10151d;
     border: 1px solid #202833;
     border-radius: 15px;
-    padding: 20px;
+    padding: 22px;
     margin-bottom: 25px;
 }
+
 
 .progress-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    align-items: center;
+    margin-bottom: 13px;
 }
+
 
 .progress-header span {
-    color: #8d96a3;
+    font-weight: bold;
+    font-size: 14px;
 }
 
+
+.progress-header p {
+    color: #727c89;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+.progress-header strong {
+    color: #35d07f;
+    font-size: 20px;
+}
+
+
 .progress-bar {
-    height: 10px;
+    height: 9px;
     background: #202833;
     border-radius: 20px;
     overflow: hidden;
 }
+
 
 #progress-fill {
     height: 100%;
@@ -147,14 +288,17 @@ button {
 }
 
 
-/* TASK SECTION */
+/* =========================
+   TASKS
+========================= */
 
 .tasks-section {
     background: #10151d;
     border: 1px solid #202833;
-    border-radius: 15px;
+    border-radius: 18px;
     padding: 25px;
 }
+
 
 .section-heading {
     display: flex;
@@ -163,25 +307,31 @@ button {
     margin-bottom: 20px;
 }
 
-.section-heading h2 {
-    font-size: 22px;
-}
 
 .clear-btn {
     background: #252c36;
     color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 11px 15px;
+    font-weight: bold;
 }
+
 
 .clear-btn:hover {
     background: #343d49;
 }
 
 
-/* TASK LIST */
+/* =========================
+   TASK ITEM
+========================= */
 
 #task-list {
     list-style: none;
 }
+
 
 .task-item {
     background: #0b1017;
@@ -196,17 +346,21 @@ button {
     gap: 15px;
 }
 
+
 .task-item.completed {
     opacity: 0.55;
 }
+
 
 .task-item.completed .task-name {
     text-decoration: line-through;
 }
 
+
 .task-info {
     flex: 1;
 }
+
 
 .task-name {
     font-size: 17px;
@@ -214,11 +368,13 @@ button {
     margin-bottom: 10px;
 }
 
+
 .task-details {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 7px;
 }
+
 
 .badge {
     font-size: 12px;
@@ -228,35 +384,52 @@ button {
     color: #c5ccd5;
 }
 
+
 .high {
     background: #4b2020;
     color: #ff8b8b;
 }
+
 
 .medium {
     background: #493d1e;
     color: #ffd66b;
 }
 
+
 .low {
     background: #183d2c;
     color: #6ee7a1;
 }
+
 
 .task-actions {
     display: flex;
     gap: 8px;
 }
 
+
 .complete-btn {
     background: #35d07f;
     color: #06100a;
 }
 
+
 .delete-btn {
     background: #442124;
     color: #ff8b8b;
 }
+
+
+.complete-btn,
+.delete-btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-weight: bold;
+}
+
 
 .complete-btn:hover,
 .delete-btn:hover {
@@ -264,69 +437,114 @@ button {
 }
 
 
-/* EMPTY MESSAGE */
+/* =========================
+   EMPTY STATE
+========================= */
 
 #empty-message {
     text-align: center;
     color: #727c89;
-    padding: 30px 0;
+    padding: 40px 10px 25px;
 }
 
 
-/* MOBILE */
+.empty-icon {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #183d2c;
+    color: #35d07f;
+    font-weight: bold;
+}
+
+
+#empty-message h3 {
+    color: #c5ccd5;
+    margin-bottom: 6px;
+}
+
+
+#empty-message p {
+    font-size: 13px;
+}
+
+
+/* =========================
+   TABLET
+========================= */
 
 @media (max-width: 850px) {
+
+    .steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 
     .task-form {
         grid-template-columns: 1fr 1fr;
     }
 
-    #task-input {
-        grid-column: span 2;
-    }
-
-    #add-btn {
-        grid-column: span 2;
-    }
-
 }
 
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
     .app {
         width: 94%;
-        margin: 25px auto;
+        margin: 25px auto 50px;
     }
+
 
     .header h1 {
         font-size: 28px;
     }
 
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+
     .dashboard {
         grid-template-columns: 1fr;
     }
+
 
     .task-form {
         grid-template-columns: 1fr;
     }
 
-    #task-input,
-    #add-btn {
-        grid-column: span 1;
-    }
 
     .task-item {
         align-items: flex-start;
         flex-direction: column;
     }
 
+
     .task-actions {
         width: 100%;
     }
+
 
     .task-actions button {
         flex: 1;
     }
 
+
+    .section-heading {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
 }
+
