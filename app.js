@@ -1246,4 +1246,3 @@ window.addEventListener(
 // ===============================
 
 renderTasks();
-
