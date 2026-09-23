@@ -1,60 +1,120 @@
-// ===============================
+// ==========================================
+// VTASKBASE APP
+// ==========================================
+
+
+// ==========================================
 // GET HTML ELEMENTS
-// ===============================
+// ==========================================
 
-const taskInput =
-    document.getElementById("task-input");
+const taskForm = document.getElementById("task-form");
 
-const areaInput =
-    document.getElementById("area-input");
+const taskInput = document.getElementById("task-input");
 
-const priorityInput =
-    document.getElementById("priority-input");
+const areaInput = document.getElementById("area-input");
 
-const deadlineInput =
-    document.getElementById("deadline-input");
+const deadlineInput = document.getElementById("deadline-input");
 
-const addTaskBtn =
-    document.getElementById("add-task-btn");
+const taskList = document.getElementById("task-list");
 
-const taskList =
-    document.getElementById("task-list");
+const emptyState = document.getElementById("empty-state");
 
-const searchInput =
-    document.getElementById("search-input");
+const searchInput = document.getElementById("search-input");
 
-const areaFilter =
-    document.getElementById("area-filter");
+const sortSelect = document.getElementById("sort-select");
 
-const priorityFilter =
-    document.getElementById("priority-filter");
+const filterButtons =
+    document.querySelectorAll(".filter-btn");
 
-const sortSelect =
-    document.getElementById("sort-select");
 
-const clearBtn =
-    document.getElementById("clear-btn");
+// Dashboard
+
+const totalCount =
+    document.getElementById("total-count");
+
+const completedCount =
+    document.getElementById("completed-count");
+
+const pendingCount =
+    document.getElementById("pending-count");
+
+const overdueCount =
+    document.getElementById("overdue-count");
+
+
+// Progress
+
+const progressPercent =
+    document.getElementById("progress-percent");
+
+const progressFill =
+    document.getElementById("progress-fill");
+
+
+// Focus
+
+const focusTitle =
+    document.getElementById("focus-title");
+
+const focusText =
+    document.getElementById("focus-text");
+
+
+// Edit modal
+
+const editModal =
+    document.getElementById("edit-modal");
+
+const editForm =
+    document.getElementById("edit-form");
+
+const editTask =
+    document.getElementById("edit-task");
+
+const editArea =
+    document.getElementById("edit-area");
+
+const editDeadline =
+    document.getElementById("edit-deadline");
+
+const closeModal =
+    document.getElementById("close-modal");
+
+const cancelEdit =
+    document.getElementById("cancel-edit");
+
+
+// Theme
 
 const themeBtn =
     document.getElementById("theme-btn");
+
+
+// Install
 
 const installBtn =
     document.getElementById("install-btn");
 
 
-// ===============================
-// LOAD TASKS
-// ===============================
+// ==========================================
+// DATA
+// ==========================================
 
 let tasks =
     JSON.parse(
         localStorage.getItem("vtaskbase_tasks")
     ) || [];
 
+let currentFilter = "all";
 
-// ===============================
+let editingTaskId = null;
+
+let deferredPrompt = null;
+
+
+// ==========================================
 // SAVE TASKS
-// ===============================
+// ==========================================
 
 function saveTasks() {
 
@@ -66,10 +126,16 @@ function saveTasks() {
 }
 
 
-// ===============================
-// CONVERT DATETIME-LOCAL
-// TO LOCAL TIME
-// ===============================
+// ==========================================
+// DATE/TIME PARSER
+// ==========================================
+
+// datetime-local gives us something like:
+//
+// 2026-09-23T18:30
+//
+// We manually turn that into a JavaScript Date
+// using the user's local time.
 
 function getLocalDateTime(value) {
 
@@ -78,15 +144,7 @@ function getLocalDateTime(value) {
     }
 
 
-    /*
-        datetime-local gives:
-
-        2026-09-23T17:30
-
-        We manually create the Date so
-        the selected time is treated as
-        the user's local time.
-    */
+    // datetime-local
 
     if (value.includes("T")) {
 
@@ -104,7 +162,6 @@ function getLocalDateTime(value) {
                 .split("-")
                 .map(Number);
 
-
         const timeParts =
             parts[1]
                 .split(":")
@@ -115,9 +172,7 @@ function getLocalDateTime(value) {
             dateParts.length !== 3 ||
             timeParts.length < 2
         ) {
-
             return null;
-
         }
 
 
@@ -154,24 +209,16 @@ function getLocalDateTime(value) {
             );
 
 
-        if (
-            isNaN(date.getTime())
-        ) {
-
+        if (isNaN(date.getTime())) {
             return null;
-
         }
 
 
         return date;
-
     }
 
 
-    /*
-        Support old tasks that may have
-        only a date saved.
-    */
+    // Old date-only format
 
     if (
         /^\d{4}-\d{2}-\d{2}$/.test(value)
@@ -205,87 +252,87 @@ function getLocalDateTime(value) {
             );
 
 
-        if (
-            isNaN(date.getTime())
-        ) {
-
+        if (isNaN(date.getTime())) {
             return null;
-
         }
 
 
         return date;
-
     }
 
 
     return null;
-
 }
 
 
-// ===============================
-// GET DEADLINE TIME
-// ===============================
+// ==========================================
+// GET DEADLINE
+// ==========================================
 
-function getDeadlineTime(deadline) {
+function getDeadlineTime(task) {
 
-    const date =
-        getLocalDateTime(deadline);
-
-
-    if (!date) {
+    if (!task.deadline) {
         return null;
     }
 
-
-    return date.getTime();
+    return getLocalDateTime(task.deadline);
 
 }
 
 
-// ===============================
+// ==========================================
 // FORMAT DEADLINE
-// ===============================
+// ==========================================
 
-function formatDeadline(deadline) {
+function formatDeadline(value) {
 
     const date =
-        getLocalDateTime(deadline);
+        getLocalDateTime(value);
 
 
     if (!date) {
-        return "";
+        return "No deadline";
     }
 
 
     return date.toLocaleString(
         undefined,
         {
-            dateStyle: "medium",
-            timeStyle: "short"
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            hour: "numeric",
+            minute: "2-digit"
         }
     );
 
 }
 
 
-// ===============================
-// GET COUNTDOWN
-// ===============================
+// ==========================================
+// COUNTDOWN
+// ==========================================
 
-function getCountdown(deadline) {
+function getCountdown(task) {
 
-    const deadlineTime =
-        getDeadlineTime(deadline);
-
-
-    if (
-        deadlineTime === null
-    ) {
+    if (task.completed) {
 
         return {
-            text: "NO DEADLINE",
+            text: "Completed",
+            className: "completed-countdown"
+        };
+
+    }
+
+
+    const deadline =
+        getDeadlineTime(task);
+
+
+    if (!deadline) {
+
+        return {
+            text: "No deadline",
             className: "normal"
         };
 
@@ -293,20 +340,17 @@ function getCountdown(deadline) {
 
 
     const now =
-        Date.now();
+        new Date();
 
 
     const difference =
-        deadlineTime - now;
+        deadline.getTime() -
+        now.getTime();
 
 
-    // ===========================
-    // OVERDUE
-    // ===========================
+    // Task is overdue
 
-    if (
-        difference <= 0
-    ) {
+    if (difference <= 0) {
 
         return {
             text: "OVERDUE",
@@ -316,9 +360,7 @@ function getCountdown(deadline) {
     }
 
 
-    // ===========================
-    // CONVERT TO SECONDS
-    // ===========================
+    // Convert milliseconds
 
     const totalSeconds =
         Math.floor(
@@ -334,15 +376,13 @@ function getCountdown(deadline) {
 
     const hours =
         Math.floor(
-            (totalSeconds % 86400) /
-            3600
+            (totalSeconds % 86400) / 3600
         );
 
 
     const minutes =
         Math.floor(
-            (totalSeconds % 3600) /
-            60
+            (totalSeconds % 3600) / 60
         );
 
 
@@ -353,58 +393,124 @@ function getCountdown(deadline) {
     let text = "";
 
 
-    if (
-        days > 0
-    ) {
+    if (days > 0) {
 
-        text +=
-            `${days}d `;
+        text =
+            `${days}d ${hours}h ${minutes}m`;
+
+    }
+
+    else if (hours > 0) {
+
+        text =
+            `${hours}h ${minutes}m ${seconds}s`;
+
+    }
+
+    else {
+
+        text =
+            `${minutes}m ${seconds}s`;
 
     }
 
 
-    text +=
-        `${String(hours).padStart(2, "0")}h `;
+    let className = "normal";
 
 
-    text +=
-        `${String(minutes).padStart(2, "0")}m `;
+    // Less than one hour
 
-
-    text +=
-        `${String(seconds).padStart(2, "0")}s`;
-
-
-    // ===========================
-    // COUNTDOWN STATUS
-    // ===========================
-
-    const className =
-        difference <=
-        60 * 60 * 1000
-            ? "soon"
-            : "normal";
+    if (difference < 60 * 60 * 1000) {
+        className = "soon";
+    }
 
 
     return {
-        text: text,
-        className: className
+        text,
+        className
     };
 
 }
 
 
-// ===============================
-// GET VISIBLE TASKS
-// ===============================
+// ==========================================
+// ESCAPE HTML
+// ==========================================
 
-function getVisibleTasks() {
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text || "";
+
+    return div.innerHTML;
+
+}
+
+
+// ==========================================
+// RENDER TASKS
+// ==========================================
+
+function renderTasks() {
 
     let visibleTasks =
         [...tasks];
 
 
-    const search =
+    // ======================================
+    // FILTER
+    // ======================================
+
+    if (currentFilter === "pending") {
+
+        visibleTasks =
+            visibleTasks.filter(
+                task => !task.completed
+            );
+
+    }
+
+
+    if (currentFilter === "completed") {
+
+        visibleTasks =
+            visibleTasks.filter(
+                task => task.completed
+            );
+
+    }
+
+
+    if (currentFilter === "overdue") {
+
+        visibleTasks =
+            visibleTasks.filter(task => {
+
+                if (task.completed) {
+                    return false;
+                }
+
+                const deadline =
+                    getDeadlineTime(task);
+
+                return (
+                    deadline &&
+                    deadline.getTime() <= Date.now()
+                );
+
+            });
+
+    }
+
+
+    // ======================================
+    // SEARCH
+    // ======================================
+
+    const searchTerm =
         searchInput
             ? searchInput.value
                 .toLowerCase()
@@ -412,451 +518,196 @@ function getVisibleTasks() {
             : "";
 
 
-    const selectedArea =
-        areaFilter
-            ? areaFilter.value
-            : "all";
-
-
-    const selectedPriority =
-        priorityFilter
-            ? priorityFilter.value
-            : "all";
-
-
-    // ===========================
-    // SEARCH
-    // ===========================
-
-    if (search) {
+    if (searchTerm) {
 
         visibleTasks =
-            visibleTasks.filter(
-                function (task) {
+            visibleTasks.filter(task => {
 
-                    return (
+                return (
+                    task.title
+                        .toLowerCase()
+                        .includes(searchTerm)
+                    ||
+                    task.area
+                        .toLowerCase()
+                        .includes(searchTerm)
+                );
 
-                        task.title
-                            .toLowerCase()
-                            .includes(search)
-
-                        ||
-
-                        task.area
-                            .toLowerCase()
-                            .includes(search)
-
-                    );
-
-                }
-            );
+            });
 
     }
 
 
-    // ===========================
-    // AREA FILTER
-    // ===========================
+    // ======================================
+    // SORT
+    // ======================================
 
-    if (
-        selectedArea &&
-        selectedArea !== "all"
-    ) {
+    const sortType =
+        sortSelect
+            ? sortSelect.value
+            : "newest";
 
-        visibleTasks =
-            visibleTasks.filter(
-                function (task) {
 
-                    return (
-                        task.area ===
-                        selectedArea
-                    );
+    if (sortType === "newest") {
 
-                }
-            );
+        visibleTasks.sort(
+            (a, b) =>
+                b.createdAt - a.createdAt
+        );
 
     }
 
 
-    // ===========================
-    // PRIORITY FILTER
-    // ===========================
+    if (sortType === "oldest") {
 
-    if (
-        selectedPriority &&
-        selectedPriority !== "all"
-    ) {
-
-        visibleTasks =
-            visibleTasks.filter(
-                function (task) {
-
-                    return (
-                        task.priority ===
-                        selectedPriority
-                    );
-
-                }
-            );
+        visibleTasks.sort(
+            (a, b) =>
+                a.createdAt - b.createdAt
+        );
 
     }
 
 
-    // ===========================
-    // SORTING
-    // ===========================
+    if (sortType === "alphabetical") {
 
-    if (sortSelect) {
-
-        const sort =
-            sortSelect.value;
-
-
-        // NEWEST
-
-        if (
-            sort === "newest"
-        ) {
-
-            visibleTasks.sort(
-                function (a, b) {
-
-                    return (
-                        b.createdAt -
-                        a.createdAt
-                    );
-
-                }
-            );
-
-        }
-
-
-        // OLDEST
-
-        if (
-            sort === "oldest"
-        ) {
-
-            visibleTasks.sort(
-                function (a, b) {
-
-                    return (
-                        a.createdAt -
-                        b.createdAt
-                    );
-
-                }
-            );
-
-        }
-
-
-        // DEADLINE
-
-        if (
-            sort === "deadline"
-        ) {
-
-            visibleTasks.sort(
-                function (a, b) {
-
-                    const aTime =
-                        getDeadlineTime(
-                            a.deadline
-                        );
-
-
-                    const bTime =
-                        getDeadlineTime(
-                            b.deadline
-                        );
-
-
-                    if (
-                        aTime === null
-                    ) {
-
-                        return 1;
-
-                    }
-
-
-                    if (
-                        bTime === null
-                    ) {
-
-                        return -1;
-
-                    }
-
-
-                    return (
-                        aTime -
-                        bTime
-                    );
-
-                }
-            );
-
-        }
-
-
-        // PRIORITY
-
-        if (
-            sort === "priority"
-        ) {
-
-            const priorityOrder = {
-
-                high: 1,
-
-                medium: 2,
-
-                low: 3
-
-            };
-
-
-            visibleTasks.sort(
-                function (a, b) {
-
-                    return (
-                        priorityOrder[
-                            a.priority
-                        ] -
-                        priorityOrder[
-                            b.priority
-                        ]
-                    );
-
-                }
-            );
-
-        }
+        visibleTasks.sort(
+            (a, b) =>
+                a.title.localeCompare(
+                    b.title
+                )
+        );
 
     }
 
 
-    return visibleTasks;
+    if (sortType === "deadline") {
 
-}
+        visibleTasks.sort(
+            (a, b) => {
 
+                const deadlineA =
+                    getDeadlineTime(a);
 
-// ===============================
-// ESCAPE HTML
-// ===============================
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
+                const deadlineB =
+                    getDeadlineTime(b);
 
 
-    div.textContent =
-        text;
+                if (!deadlineA) {
+                    return 1;
+                }
+
+                if (!deadlineB) {
+                    return -1;
+                }
 
 
-    return div.innerHTML;
+                return (
+                    deadlineA.getTime() -
+                    deadlineB.getTime()
+                );
 
-}
+            }
+        );
 
-
-// ===============================
-// RENDER TASKS
-// ===============================
-
-function renderTasks() {
-
-    if (!taskList) {
-        return;
     }
 
 
-    const visibleTasks =
-        getVisibleTasks();
-
+    // ======================================
+    // CLEAR LIST
+    // ======================================
 
     taskList.innerHTML = "";
 
 
-    // ===========================
-    // NO TASKS
-    // ===========================
+    // ======================================
+    // EMPTY STATE
+    // ======================================
 
-    if (
-        visibleTasks.length === 0
-    ) {
+    if (visibleTasks.length === 0) {
 
-        taskList.innerHTML = `
+        emptyState.style.display =
+            "block";
 
-            <div class="empty-state">
+    }
 
-                <h3>
-                    No tasks found
-                </h3>
+    else {
 
-                <p>
-                    Add a task or change
-                    your filters.
-                </p>
-
-            </div>
-
-        `;
-
-
-        updateDashboard();
-
-        return;
+        emptyState.style.display =
+            "none";
 
     }
 
 
-    // ===========================
+    // ======================================
     // CREATE TASK CARDS
-    // ===========================
+    // ======================================
 
-    visibleTasks.forEach(
-        function (task) {
+    visibleTasks.forEach(task => {
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+        const countdown =
+            getCountdown(task);
 
 
-            card.className =
-                "task-card";
+        const card =
+            document.createElement("div");
 
 
-            if (
-                task.completed
-            ) {
-
-                card.classList.add(
-                    "completed"
-                );
-
-            }
+        card.className =
+            "task-card";
 
 
-            const countdown =
-                getCountdown(
-                    task.deadline
-                );
+        if (task.completed) {
+
+            card.classList.add(
+                "completed"
+            );
+
+        }
 
 
-            let countdownHTML =
-                "";
+        card.innerHTML = `
+
+            <div class="task-main">
+
+                <button
+                    class="complete-btn"
+                    data-id="${task.id}"
+                    title="Complete task"
+                >
+                    ${task.completed ? "✓" : ""}
+                </button>
 
 
-            if (
-                task.deadline
-            ) {
+                <div class="task-info">
 
-                if (
-                    task.completed
-                ) {
+                    <h3>
+                        ${escapeHTML(task.title)}
+                    </h3>
 
-                    countdownHTML = `
+                    <div class="task-meta">
 
-                        <span
-                            class="countdown completed-countdown"
-                        >
-                            ✓ Completed
+                        <span class="task-area">
+                            ${escapeHTML(task.area || "General")}
                         </span>
 
-                    `;
-
-                }
-
-                else if (
-                    countdown
-                ) {
-
-                    countdownHTML = `
-
-                        <span
-                            class="countdown ${countdown.className}"
-                            data-deadline="${escapeHTML(
-                                task.deadline
-                            )}"
-                            data-id="${task.id}"
-                        >
-                            ⏳ ${countdown.text}
+                        <span>
+                            ${formatDeadline(task.deadline)}
                         </span>
-
-                    `;
-
-                }
-
-            }
-
-
-            card.innerHTML = `
-
-                <div class="task-left">
-
-                    <input
-                        type="checkbox"
-                        class="task-checkbox"
-                        data-id="${task.id}"
-                        ${
-                            task.completed
-                                ? "checked"
-                                : ""
-                        }
-                    >
-
-
-                    <div class="task-info">
-
-                        <h3>
-                            ${escapeHTML(
-                                task.title
-                            )}
-                        </h3>
-
-
-                        <div class="task-meta">
-
-                            <span>
-                                ${escapeHTML(
-                                    task.area
-                                )}
-                            </span>
-
-
-                            <span
-                                class="priority-${task.priority}"
-                            >
-                                ${task.priority}
-                            </span>
-
-
-                            ${
-                                task.deadline
-                                    ? `
-                                        <span>
-                                            📅
-                                            ${formatDeadline(
-                                                task.deadline
-                                            )}
-                                        </span>
-                                    `
-                                    : ""
-                            }
-
-
-                            ${countdownHTML}
-
-                        </div>
 
                     </div>
 
                 </div>
+
+            </div>
+
+
+            <div class="task-right">
+
+                <span
+                    class="countdown ${countdown.className}"
+                >
+                    ${countdown.text}
+                </span>
 
 
                 <div class="task-actions">
@@ -864,107 +715,29 @@ function renderTasks() {
                     <button
                         class="edit-btn"
                         data-id="${task.id}"
+                        title="Edit task"
                     >
-                        Edit
+                        ✎
                     </button>
-
 
                     <button
                         class="delete-btn"
                         data-id="${task.id}"
+                        title="Delete task"
                     >
-                        Delete
+                        ×
                     </button>
 
                 </div>
 
-            `;
+            </div>
+
+        `;
 
 
-            taskList.appendChild(
-                card
-            );
+        taskList.appendChild(card);
 
-        }
-    );
-
-
-    // ===========================
-    // CHECKBOX EVENTS
-    // ===========================
-
-    document
-        .querySelectorAll(
-            ".task-checkbox"
-        )
-        .forEach(
-            function (checkbox) {
-
-                checkbox.addEventListener(
-                    "change",
-                    function () {
-
-                        toggleTask(
-                            this.dataset.id
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    // ===========================
-    // EDIT EVENTS
-    // ===========================
-
-    document
-        .querySelectorAll(
-            ".edit-btn"
-        )
-        .forEach(
-            function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        openEditModal(
-                            this.dataset.id
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-    // ===========================
-    // DELETE EVENTS
-    // ===========================
-
-    document
-        .querySelectorAll(
-            ".delete-btn"
-        )
-        .forEach(
-            function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        deleteTask(
-                            this.dataset.id
-                        );
-
-                    }
-                );
-
-            }
-        );
+    });
 
 
     updateDashboard();
@@ -972,310 +745,9 @@ function renderTasks() {
 }
 
 
-// ===============================
-// UPDATE COUNTDOWNS
-// ===============================
-
-function updateCountdowns() {
-
-    const countdowns =
-        document.querySelectorAll(
-            ".countdown[data-deadline]"
-        );
-
-
-    countdowns.forEach(
-        function (element) {
-
-            const deadline =
-                element.dataset.deadline;
-
-
-            const countdown =
-                getCountdown(
-                    deadline
-                );
-
-
-            if (!countdown) {
-                return;
-            }
-
-
-            element.textContent =
-                `⏳ ${countdown.text}`;
-
-
-            element.classList.remove(
-                "normal",
-                "soon",
-                "overdue"
-            );
-
-
-            element.classList.add(
-                countdown.className
-            );
-
-        }
-    );
-
-
-    updateDashboard();
-
-}
-
-
-// ===============================
-// COUNTDOWN RUNS EVERY SECOND
-// ===============================
-
-setInterval(
-    updateCountdowns,
-    1000
-);
-
-
-// ===============================
-// ADD TASK
-// ===============================
-
-function addTask() {
-
-    if (!taskInput) {
-        return;
-    }
-
-
-    const title =
-        taskInput.value.trim();
-
-
-    /*
-        IMPORTANT:
-        Area is a SELECT/DROPDOWN.
-
-        We DO NOT use .trim()
-        here.
-    */
-
-    const area =
-        areaInput
-            ? areaInput.value
-            : "General";
-
-
-    const priority =
-        priorityInput
-            ? priorityInput.value
-            : "medium";
-
-
-    const deadline =
-        deadlineInput
-            ? deadlineInput.value
-            : "";
-
-
-    // ===========================
-    // CHECK TASK TITLE
-    // ===========================
-
-    if (!title) {
-
-        alert(
-            "Please enter a task."
-        );
-
-        return;
-
-    }
-
-
-    // ===========================
-    // CHECK DEADLINE
-    // ===========================
-
-    if (deadline) {
-
-        const deadlineTime =
-            getDeadlineTime(
-                deadline
-            );
-
-
-        if (
-            deadlineTime === null
-        ) {
-
-            alert(
-                "Please choose a valid deadline."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            deadlineTime <=
-            Date.now()
-        ) {
-
-            alert(
-                "Please choose a future deadline."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    // ===========================
-    // CREATE TASK
-    // ===========================
-
-    const newTask = {
-
-        id:
-            Date.now().toString(),
-
-        title:
-            title,
-
-        area:
-            area || "General",
-
-        priority:
-            priority,
-
-        deadline:
-            deadline,
-
-        completed:
-            false,
-
-        createdAt:
-            Date.now()
-
-    };
-
-
-    tasks.unshift(
-        newTask
-    );
-
-
-    saveTasks();
-
-    renderTasks();
-
-
-    // ===========================
-    // CLEAR TEXT INPUTS
-    // ===========================
-
-    taskInput.value = "";
-
-
-    /*
-        DO NOT CLEAR areaInput.
-
-        It is a dropdown, so the selected
-        option stays available for the
-        next task.
-    */
-
-
-    if (deadlineInput) {
-
-        deadlineInput.value = "";
-
-    }
-
-}
-
-
-// ===============================
-// TOGGLE TASK
-// ===============================
-
-function toggleTask(id) {
-
-    tasks =
-        tasks.map(
-            function (task) {
-
-                if (
-                    task.id === id
-                ) {
-
-                    return {
-
-                        ...task,
-
-                        completed:
-                            !task.completed
-
-                    };
-
-                }
-
-
-                return task;
-
-            }
-        );
-
-
-    saveTasks();
-
-    renderTasks();
-
-}
-
-
-// ===============================
-// DELETE TASK
-// ===============================
-
-function deleteTask(id) {
-
-    const confirmDelete =
-        confirm(
-            "Delete this task?"
-        );
-
-
-    if (!confirmDelete) {
-        return;
-    }
-
-
-    tasks =
-        tasks.filter(
-            function (task) {
-
-                return (
-                    task.id !== id
-                );
-
-            }
-        );
-
-
-    saveTasks();
-
-    renderTasks();
-
-}
-
-
-// ===============================
+// ==========================================
 // UPDATE DASHBOARD
-// ===============================
+// ==========================================
 
 function updateDashboard() {
 
@@ -1285,110 +757,55 @@ function updateDashboard() {
 
     const completed =
         tasks.filter(
-            function (task) {
-
-                return task.completed;
-
-            }
+            task => task.completed
         ).length;
 
 
     const pending =
-        tasks.filter(
-            function (task) {
-
-                return !task.completed;
-
-            }
-        ).length;
+        total - completed;
 
 
     const overdue =
-        tasks.filter(
-            function (task) {
+        tasks.filter(task => {
 
-                const deadlineTime =
-                    getDeadlineTime(
-                        task.deadline
-                    );
-
-
-                return (
-
-                    !task.completed &&
-
-                    deadlineTime !== null &&
-
-                    deadlineTime <=
-                    Date.now()
-
-                );
-
+            if (task.completed) {
+                return false;
             }
-        ).length;
 
 
-    const totalElement =
-        document.getElementById(
-            "total-count"
-        );
+            const deadline =
+                getDeadlineTime(task);
 
 
-    const completedElement =
-        document.getElementById(
-            "completed-count"
-        );
+            return (
+                deadline &&
+                deadline.getTime() <= Date.now()
+            );
+
+        }).length;
 
 
-    const pendingElement =
-        document.getElementById(
-            "pending-count"
-        );
+    totalCount.textContent =
+        total;
 
 
-    const overdueElement =
-        document.getElementById(
-            "overdue-count"
-        );
+    completedCount.textContent =
+        completed;
 
 
-    if (totalElement) {
-
-        totalElement.textContent =
-            total;
-
-    }
+    pendingCount.textContent =
+        pending;
 
 
-    if (completedElement) {
-
-        completedElement.textContent =
-            completed;
-
-    }
+    overdueCount.textContent =
+        overdue;
 
 
-    if (pendingElement) {
-
-        pendingElement.textContent =
-            pending;
-
-    }
-
-
-    if (overdueElement) {
-
-        overdueElement.textContent =
-            overdue;
-
-    }
-
-
-    // ===========================
+    // ======================================
     // PROGRESS
-    // ===========================
+    // ======================================
 
-    const progress =
+    const percentage =
         total === 0
             ? 0
             : Math.round(
@@ -1396,51 +813,244 @@ function updateDashboard() {
             );
 
 
-    const progressBar =
-        document.getElementById(
-            "progress-bar"
-        );
+    progressPercent.textContent =
+        `${percentage}%`;
 
 
-    const progressText =
-        document.getElementById(
-            "progress-text"
-        );
+    progressFill.style.width =
+        `${percentage}%`;
 
 
-    if (progressBar) {
+    // ======================================
+    // FOCUS MESSAGE
+    // ======================================
 
-        progressBar.style.width =
-            progress + "%";
+    if (total === 0) {
+
+        focusTitle.textContent =
+            "Stay focused.";
+
+        focusText.textContent =
+            "One task at a time. Keep making progress.";
 
     }
 
+    else if (completed === total) {
 
-    if (progressText) {
+        focusTitle.textContent =
+            "Everything is complete.";
 
-        progressText.textContent =
-            progress + "%";
+        focusText.textContent =
+            "You finished all your tasks. Keep the momentum going.";
+
+    }
+
+    else if (overdue > 0) {
+
+        focusTitle.textContent =
+            "Time to catch up.";
+
+        focusText.textContent =
+            `You have ${overdue} overdue task${overdue === 1 ? "" : "s"}.`;
+
+    }
+
+    else {
+
+        focusTitle.textContent =
+            "Keep moving.";
+
+        focusText.textContent =
+            `${pending} task${pending === 1 ? "" : "s"} still waiting for you.`;
 
     }
 
 }
 
 
-// ===============================
+// ==========================================
+// ADD TASK
+// ==========================================
+
+taskForm.addEventListener(
+    "submit",
+    function (event) {
+
+        event.preventDefault();
+
+
+        const title =
+            taskInput.value.trim();
+
+
+        if (!title) {
+            return;
+        }
+
+
+        // IMPORTANT:
+        // area-input is a SELECT dropdown.
+        // So we use .value directly.
+
+        const area =
+            areaInput
+                ? areaInput.value
+                : "General";
+
+
+        const deadline =
+            deadlineInput.value;
+
+
+        const newTask = {
+
+            id:
+                Date.now(),
+
+            title:
+                title,
+
+            area:
+                area || "General",
+
+            deadline:
+                deadline || "",
+
+            completed:
+                false,
+
+            createdAt:
+                Date.now()
+
+        };
+
+
+        tasks.push(
+            newTask
+        );
+
+
+        saveTasks();
+
+
+        // Clear only task/deadline.
+        // Keep the area dropdown selected.
+
+        taskInput.value = "";
+
+        deadlineInput.value = "";
+
+
+        renderTasks();
+
+    }
+);
+
+
+// ==========================================
+// COMPLETE TASK
+// ==========================================
+
+function toggleTask(id) {
+
+    tasks =
+        tasks.map(task => {
+
+            if (task.id === id) {
+
+                return {
+                    ...task,
+                    completed:
+                        !task.completed
+                };
+
+            }
+
+            return task;
+
+        });
+
+
+    saveTasks();
+
+    renderTasks();
+
+}
+
+
+// ==========================================
+// DELETE TASK
+// ==========================================
+
+function deleteTask(id) {
+
+    tasks =
+        tasks.filter(
+            task => task.id !== id
+        );
+
+
+    saveTasks();
+
+    renderTasks();
+
+}
+
+
+// ==========================================
+// TASK BUTTON EVENTS
+// ==========================================
+
+taskList.addEventListener(
+    "click",
+    function (event) {
+
+        const button =
+            event.target.closest("button");
+
+
+        if (!button) {
+            return;
+        }
+
+
+        const id =
+            Number(button.dataset.id);
+
+
+        if (button.classList.contains("complete-btn")) {
+
+            toggleTask(id);
+
+        }
+
+
+        if (button.classList.contains("delete-btn")) {
+
+            deleteTask(id);
+
+        }
+
+
+        if (button.classList.contains("edit-btn")) {
+
+            openEditModal(id);
+
+        }
+
+    }
+);
+
+
+// ==========================================
 // OPEN EDIT MODAL
-// ===============================
+// ==========================================
 
 function openEditModal(id) {
 
     const task =
         tasks.find(
-            function (task) {
-
-                return (
-                    task.id === id
-                );
-
-            }
+            task => task.id === id
         );
 
 
@@ -1449,300 +1059,183 @@ function openEditModal(id) {
     }
 
 
-    const modal =
-        document.getElementById(
-            "edit-modal"
-        );
+    editingTaskId =
+        id;
 
 
-    const editTitle =
-        document.getElementById(
-            "edit-title"
-        );
+    editTask.value =
+        task.title;
 
 
-    const editArea =
-        document.getElementById(
-            "edit-area"
-        );
-
-
-    const editPriority =
-        document.getElementById(
-            "edit-priority"
-        );
-
-
-    const editDeadline =
-        document.getElementById(
-            "edit-deadline"
-        );
-
-
-    if (editTitle) {
-
-        editTitle.value =
-            task.title;
-
-    }
-
-
-    /*
-        editArea is a SELECT dropdown,
-        so we simply select its value.
-    */
+    // IMPORTANT:
+    // Restore the selected area.
 
     if (editArea) {
 
         editArea.value =
-            task.area;
+            task.area || "School";
 
     }
 
 
-    if (editPriority) {
-
-        editPriority.value =
-            task.priority;
-
-    }
+    editDeadline.value =
+        task.deadline || "";
 
 
-    if (editDeadline) {
-
-        editDeadline.value =
-            task.deadline || "";
-
-    }
-
-
-    if (modal) {
-
-        modal.dataset.id =
-            id;
-
-
-        modal.style.display =
-            "flex";
-
-    }
+    editModal.classList.add(
+        "show"
+    );
 
 }
 
 
-// ===============================
+// ==========================================
 // CLOSE EDIT MODAL
-// ===============================
+// ==========================================
 
 function closeEditModal() {
 
-    const modal =
-        document.getElementById(
-            "edit-modal"
-        );
+    editModal.classList.remove(
+        "show"
+    );
 
 
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
+    editingTaskId =
+        null;
 
 }
 
 
-// ===============================
+closeModal.addEventListener(
+    "click",
+    closeEditModal
+);
+
+
+cancelEdit.addEventListener(
+    "click",
+    closeEditModal
+);
+
+
+// Close if user clicks outside modal
+
+editModal.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            event.target === editModal
+        ) {
+
+            closeEditModal();
+
+        }
+
+    }
+);
+
+
+// ==========================================
 // SAVE EDIT
-// ===============================
+// ==========================================
 
-function saveEdit() {
+editForm.addEventListener(
+    "submit",
+    function (event) {
 
-    const modal =
-        document.getElementById(
-            "edit-modal"
-        );
-
-
-    if (!modal) {
-        return;
-    }
+        event.preventDefault();
 
 
-    const id =
-        modal.dataset.id;
-
-
-    const editTitle =
-        document.getElementById(
-            "edit-title"
-        );
-
-
-    const editArea =
-        document.getElementById(
-            "edit-area"
-        );
-
-
-    const editPriority =
-        document.getElementById(
-            "edit-priority"
-        );
-
-
-    const editDeadline =
-        document.getElementById(
-            "edit-deadline"
-        );
-
-
-    const newDeadline =
-        editDeadline
-            ? editDeadline.value
-            : "";
-
-
-    // ===========================
-    // CHECK DEADLINE
-    // ===========================
-
-    if (newDeadline) {
-
-        const deadlineTime =
-            getDeadlineTime(
-                newDeadline
-            );
-
-
-        if (
-            deadlineTime === null
-        ) {
-
-            alert(
-                "Please choose a valid deadline."
-            );
-
+        if (editingTaskId === null) {
             return;
-
         }
 
 
-        if (
-            deadlineTime <=
-            Date.now()
-        ) {
-
-            alert(
-                "Please choose a future deadline."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    // ===========================
-    // UPDATE TASK
-    // ===========================
-
-    tasks =
-        tasks.map(
-            function (task) {
+        tasks =
+            tasks.map(task => {
 
                 if (
-                    task.id === id
+                    task.id !== editingTaskId
                 ) {
 
-                    return {
-
-                        ...task,
-
-                        title:
-                            editTitle
-                                ? editTitle.value.trim()
-                                : task.title,
-
-                        /*
-                            Area remains a dropdown.
-                        */
-
-                        area:
-                            editArea
-                                ? editArea.value
-                                : task.area,
-
-                        priority:
-                            editPriority
-                                ? editPriority.value
-                                : task.priority,
-
-                        deadline:
-                            newDeadline
-
-                    };
+                    return task;
 
                 }
 
 
-                return task;
+                return {
+
+                    ...task,
+
+                    title:
+                        editTask.value.trim(),
+
+                    area:
+                        editArea
+                            ? editArea.value
+                            : task.area,
+
+                    deadline:
+                        editDeadline.value
+
+                };
+
+            });
+
+
+        saveTasks();
+
+
+        closeEditModal();
+
+
+        renderTasks();
+
+    }
+);
+
+
+// ==========================================
+// FILTER BUTTONS
+// ==========================================
+
+filterButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                filterButtons.forEach(
+                    btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                currentFilter =
+                    button.dataset.filter;
+
+
+                renderTasks();
 
             }
         );
 
-
-    saveTasks();
-
-    renderTasks();
-
-    closeEditModal();
-
-}
+    }
+);
 
 
-// ===============================
-// ADD TASK BUTTON
-// ===============================
-
-if (addTaskBtn) {
-
-    addTaskBtn.addEventListener(
-        "click",
-        addTask
-    );
-
-}
-
-
-// ===============================
-// ENTER KEY
-// ===============================
-
-if (taskInput) {
-
-    taskInput.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                addTask();
-
-            }
-
-        }
-    );
-
-}
-
-
-// ===============================
+// ==========================================
 // SEARCH
-// ===============================
+// ==========================================
 
 if (searchInput) {
 
@@ -1754,37 +1247,9 @@ if (searchInput) {
 }
 
 
-// ===============================
-// AREA FILTER
-// ===============================
-
-if (areaFilter) {
-
-    areaFilter.addEventListener(
-        "change",
-        renderTasks
-    );
-
-}
-
-
-// ===============================
-// PRIORITY FILTER
-// ===============================
-
-if (priorityFilter) {
-
-    priorityFilter.addEventListener(
-        "change",
-        renderTasks
-    );
-
-}
-
-
-// ===============================
+// ==========================================
 // SORT
-// ===============================
+// ==========================================
 
 if (sortSelect) {
 
@@ -1796,83 +1261,26 @@ if (sortSelect) {
 }
 
 
-// ===============================
-// CLEAR COMPLETED
-// ===============================
+// ==========================================
+// LIVE COUNTDOWN
+// ==========================================
 
-if (clearBtn) {
+// Re-render every second so the countdown
+// changes automatically.
 
-    clearBtn.addEventListener(
-        "click",
-        function () {
+setInterval(
+    function () {
 
-            tasks =
-                tasks.filter(
-                    function (task) {
+        renderTasks();
 
-                        return !task.completed;
-
-                    }
-                );
+    },
+    1000
+);
 
 
-            saveTasks();
-
-            renderTasks();
-
-        }
-    );
-
-}
-
-
-// ===============================
+// ==========================================
 // THEME
-// ===============================
-
-function applyTheme() {
-
-    const savedTheme =
-        localStorage.getItem(
-            "vtaskbase_theme"
-        );
-
-
-    if (
-        savedTheme === "light"
-    ) {
-
-        document.body.classList.add(
-            "light-theme"
-        );
-
-
-        if (themeBtn) {
-
-            themeBtn.textContent =
-                "🌙";
-
-        }
-
-    }
-    else {
-
-        document.body.classList.remove(
-            "light-theme"
-        );
-
-
-        if (themeBtn) {
-
-            themeBtn.textContent =
-                "☀";
-
-        }
-
-    }
-
-}
-
+// ==========================================
 
 if (themeBtn) {
 
@@ -1891,6 +1299,12 @@ if (themeBtn) {
                 );
 
 
+            themeBtn.textContent =
+                isLight
+                    ? "🌙"
+                    : "☀";
+
+
             localStorage.setItem(
                 "vtaskbase_theme",
                 isLight
@@ -1898,99 +1312,44 @@ if (themeBtn) {
                     : "dark"
             );
 
-
-            themeBtn.textContent =
-                isLight
-                    ? "🌙"
-                    : "☀";
-
         }
     );
 
 }
 
 
-applyTheme();
+// Load saved theme
 
-
-// ===============================
-// EDIT MODAL BUTTONS
-// ===============================
-
-const closeEditBtn =
-    document.getElementById(
-        "close-edit"
+const savedTheme =
+    localStorage.getItem(
+        "vtaskbase_theme"
     );
 
 
-const cancelEditBtn =
-    document.getElementById(
-        "cancel-edit"
+if (savedTheme === "light") {
+
+    document.body.classList.add(
+        "light-theme"
     );
 
 
-const saveEditBtn =
-    document.getElementById(
-        "save-edit"
-    );
-
-
-if (closeEditBtn) {
-
-    closeEditBtn.addEventListener(
-        "click",
-        closeEditModal
-    );
+    if (themeBtn) {
+        themeBtn.textContent = "🌙";
+    }
 
 }
 
 
-if (cancelEditBtn) {
-
-    cancelEditBtn.addEventListener(
-        "click",
-        closeEditModal
-    );
-
-}
-
-
-if (saveEditBtn) {
-
-    saveEditBtn.addEventListener(
-        "click",
-        saveEdit
-    );
-
-}
-
-
-// ===============================
+// ==========================================
 // PWA INSTALL
-// ===============================
-
-let deferredPrompt = null;
-
-
-// Keep install button visible
-
-if (installBtn) {
-
-    installBtn.style.display =
-        "block";
-
-}
-
-
-// ===============================
-// BEFORE INSTALL PROMPT
-// ===============================
+// ==========================================
 
 window.addEventListener(
     "beforeinstallprompt",
     function (event) {
 
         event.preventDefault();
+
 
         deferredPrompt =
             event;
@@ -2007,9 +1366,7 @@ window.addEventListener(
 );
 
 
-// ===============================
-// INSTALL BUTTON
-// ===============================
+// Install button
 
 if (installBtn) {
 
@@ -2017,37 +1374,41 @@ if (installBtn) {
         "click",
         async function () {
 
-            if (deferredPrompt) {
+            if (!deferredPrompt) {
 
-                deferredPrompt.prompt();
-
-
-                const result =
-                    await deferredPrompt.userChoice;
-
-
-                if (
-                    result.outcome ===
-                    "accepted"
-                ) {
-
-                    installBtn.style.display =
-                        "none";
-
-                }
-
-
-                deferredPrompt =
-                    null;
+                alert(
+                    "VTASKBASE cannot be installed from this browser right now. Make sure you are using a supported browser and that the site is opened through HTTPS."
+                );
 
                 return;
 
             }
 
 
-            alert(
-                "VTASKBASE cannot show the install prompt right now. Please open the website in Chrome and try again."
-            );
+            deferredPrompt.prompt();
+
+
+            const choice =
+                await deferredPrompt.userChoice;
+
+
+            if (
+                choice.outcome === "accepted"
+            ) {
+
+                console.log(
+                    "VTASKBASE installation accepted."
+                );
+
+            }
+
+
+            deferredPrompt =
+                null;
+
+
+            installBtn.style.display =
+                "none";
 
         }
     );
@@ -2055,31 +1416,50 @@ if (installBtn) {
 }
 
 
-// ===============================
-// APP INSTALLED
-// ===============================
+// ==========================================
+// SERVICE WORKER
+// ==========================================
 
-window.addEventListener(
-    "appinstalled",
-    function () {
+if (
+    "serviceWorker" in navigator
+) {
 
-        if (installBtn) {
+    window.addEventListener(
+        "load",
+        function () {
 
-            installBtn.style.display =
-                "none";
+            navigator.serviceWorker
+                .register(
+                    "./service-worker.js"
+                )
+                .then(
+                    function () {
+
+                        console.log(
+                            "VTASKBASE service worker registered."
+                        );
+
+                    }
+                )
+                .catch(
+                    function (error) {
+
+                        console.error(
+                            "Service worker registration failed:",
+                            error
+                        );
+
+                    }
+                );
 
         }
+    );
+
+}
 
 
-        deferredPrompt =
-            null;
-
-    }
-);
-
-
-// ===============================
-// START VTASKBASE
-// ===============================
+// ==========================================
+// INITIAL LOAD
+// ==========================================
 
 renderTasks();

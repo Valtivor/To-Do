@@ -1,5 +1,4 @@
-```javascript
-const CACHE_NAME = "vtaskbase-v2";
+const CACHE_NAME = "vtaskbase-v3";
 
 const FILES_TO_CACHE = [
     "./",
@@ -99,4 +98,3 @@ self.addEventListener(
 
     }
 );
-```

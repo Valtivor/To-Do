@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-
-    <title>VTASKBASE</title>
 
     <meta
         name="theme-color"
         content="#080b10"
     >
 
-    <link
-        rel="manifest"
-        href="manifest.json"
+    <meta
+        name="description"
+        content="VTASKBASE - Organize your tasks, track your progress, and stay focused."
     >
+
+    <title>VTASKBASE</title>
 
     <link
         rel="stylesheet"
         href="style.css"
     >
 
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
 </head>
-
 
 <body>
 
-    <!-- ========================= -->
-    <!-- TOP BAR -->
-    <!-- ========================= -->
+    <!-- ================= HEADER ================= -->
 
-    <div class="top-bar">
+    <header class="topbar">
 
         <div class="brand">
 
@@ -46,8 +44,12 @@
                 class="valtivor-logo"
             >
 
-        </div>
+            <div>
+                <h1>VTASKBASE</h1>
+                <p>Your tasks. Your progress. Your focus.</p>
+            </div>
 
+        </div>
 
         <div class="top-actions">
 
@@ -59,7 +61,6 @@
                 📲 Install
             </button>
 
-
             <button
                 id="theme-btn"
                 class="theme-btn"
@@ -70,111 +71,74 @@
 
         </div>
 
-    </div>
+    </header>
 
 
-
-    <!-- ========================= -->
-    <!-- MAIN -->
-    <!-- ========================= -->
+    <!-- ================= MAIN ================= -->
 
     <main class="container">
-
 
         <!-- HERO -->
 
         <section class="hero">
 
-            <p class="eyebrow">
-                PRODUCTIVITY SYSTEM
-            </p>
+            <div class="hero-content">
 
-            <h1>
-                VTASKBASE
-            </h1>
+                <span class="hero-label">
+                    PRODUCTIVITY SYSTEM
+                </span>
 
-            <p class="hero-text">
-                Your tasks. Your progress.
-                Your focus.
-            </p>
+                <h2>
+                    Your tasks.<br>
+                    Your progress.<br>
+                    Your focus.
+                </h2>
+
+                <p>
+                    Organize what matters, track what you've done,
+                    and stay focused on what comes next.
+                </p>
+
+            </div>
 
         </section>
-
 
 
         <!-- HOW TO USE -->
 
         <section class="info-card">
 
-            <h2>
-                How to use VTASKBASE
-            </h2>
+            <h2>How to use VTASKBASE</h2>
 
             <div class="steps">
 
                 <div class="step">
-
                     <span>01</span>
-
                     <div>
-
-                        <h3>
-                            Create
-                        </h3>
-
-                        <p>
-                            Add the tasks you need
-                            to complete.
-                        </p>
-
+                        <h3>Create</h3>
+                        <p>Add a task and choose where it belongs.</p>
                     </div>
-
                 </div>
 
-
                 <div class="step">
-
                     <span>02</span>
-
                     <div>
-
-                        <h3>
-                            Organize
-                        </h3>
-
-                        <p>
-                            Choose an area,
-                            priority and deadline.
-                        </p>
-
+                        <h3>Track</h3>
+                        <p>Set a deadline and watch your progress.</p>
                     </div>
-
                 </div>
 
-
                 <div class="step">
-
                     <span>03</span>
-
                     <div>
-
-                        <h3>
-                            Complete
-                        </h3>
-
-                        <p>
-                            Mark tasks complete
-                            and track your progress.
-                        </p>
-
+                        <h3>Complete</h3>
+                        <p>Finish your tasks and keep moving forward.</p>
                     </div>
-
                 </div>
 
             </div>
 
         </section>
-
 
 
         <!-- FOCUS -->
@@ -182,48 +146,38 @@
         <section class="focus-card">
 
             <div>
+                <span class="small-label">
+                    CURRENT FOCUS
+                </span>
 
-                <p class="eyebrow">
-                    CURRENT MODE
-                </p>
-
-                <h2>
+                <h2 id="focus-title">
                     Stay focused.
                 </h2>
 
-                <p>
-                    One task at a time.
-                    Keep moving forward.
+                <p id="focus-text">
+                    One task at a time. Keep making progress.
                 </p>
-
             </div>
 
-            <div class="focus-symbol">
+            <div class="focus-icon">
                 ⚡
             </div>
 
         </section>
 
 
-
-        <!-- DASHBOARD -->
+        <!-- ================= DASHBOARD ================= -->
 
         <section class="dashboard">
 
             <div class="section-heading">
-
                 <div>
+                    <span class="small-label">
+                        OVERVIEW
+                    </span>
 
-                    <p class="eyebrow">
-                        DASHBOARD
-                    </p>
-
-                    <h2>
-                        Your progress
-                    </h2>
-
+                    <h2>Dashboard</h2>
                 </div>
-
             </div>
 
 
@@ -231,8 +185,8 @@
 
                 <div class="stat-card">
 
-                    <span>
-                        Total
+                    <span class="stat-label">
+                        TOTAL
                     </span>
 
                     <strong id="total-count">
@@ -244,8 +198,8 @@
 
                 <div class="stat-card">
 
-                    <span>
-                        Completed
+                    <span class="stat-label">
+                        COMPLETED
                     </span>
 
                     <strong id="completed-count">
@@ -257,8 +211,8 @@
 
                 <div class="stat-card">
 
-                    <span>
-                        Pending
+                    <span class="stat-label">
+                        PENDING
                     </span>
 
                     <strong id="pending-count">
@@ -270,8 +224,8 @@
 
                 <div class="stat-card">
 
-                    <span>
-                        Overdue
+                    <span class="stat-label">
+                        OVERDUE
                     </span>
 
                     <strong id="overdue-count">
@@ -285,32 +239,28 @@
         </section>
 
 
+        <!-- ================= CREATE TASK ================= -->
 
-        <!-- CREATE TASK -->
-
-        <section class="task-creator">
+        <section class="creator-card">
 
             <div class="section-heading">
 
                 <div>
+                    <span class="small-label">
+                        TASK CREATOR
+                    </span>
 
-                    <p class="eyebrow">
-                        NEW TASK
-                    </p>
-
-                    <h2>
-                        Add a task
-                    </h2>
-
+                    <h2>Create a task</h2>
                 </div>
 
             </div>
 
 
-            <div class="creator-grid">
+            <form id="task-form">
 
+                <!-- TASK -->
 
-                <div class="input-group">
+                <div class="form-group">
 
                     <label for="task-input">
                         Task
@@ -320,47 +270,40 @@
                         type="text"
                         id="task-input"
                         placeholder="What needs to be done?"
+                        required
                     >
 
                 </div>
 
 
-                <div class="input-group">
+                <!-- AREA -->
+
+                <div class="form-group">
 
                     <label for="area-input">
                         Area
                     </label>
 
-                    <input
-                        type="text"
-                        id="area-input"
-                        placeholder="e.g. School"
-                    >
+                    <select id="area-input">
 
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="priority-input">
-                        Priority
-                    </label>
-
-                    <select id="priority-input">
-
-                        <option value="low">
-                            Low
+                        <option value="School">
+                            School
                         </option>
 
-                        <option
-                            value="medium"
-                            selected
-                        >
-                            Medium
+                        <option value="Coding">
+                            Coding
                         </option>
 
-                        <option value="high">
-                            High
+                        <option value="Personal">
+                            Personal
+                        </option>
+
+                        <option value="Work">
+                            Work
+                        </option>
+
+                        <option value="Other">
+                            Other
                         </option>
 
                     </select>
@@ -368,7 +311,9 @@
                 </div>
 
 
-                <div class="input-group">
+                <!-- DEADLINE -->
+
+                <div class="form-group">
 
                     <label for="deadline-input">
                         Deadline
@@ -381,51 +326,47 @@
 
                 </div>
 
-            </div>
 
+                <button
+                    type="submit"
+                    class="primary-btn"
+                >
+                    + Add Task
+                </button>
 
-            <button
-                id="add-task-btn"
-                class="primary-btn"
-            >
-                + Add Task
-            </button>
+            </form>
 
         </section>
 
 
+        <!-- ================= PROGRESS ================= -->
 
-        <!-- PROGRESS -->
-
-        <section class="progress-section">
+        <section class="progress-card">
 
             <div class="progress-header">
 
                 <div>
 
-                    <p class="eyebrow">
-                        COMPLETION
-                    </p>
+                    <span class="small-label">
+                        PROGRESS
+                    </span>
 
-                    <h2>
-                        Progress
-                    </h2>
+                    <h2>Task progress</h2>
 
                 </div>
 
-
-                <strong id="progress-text">
+                <strong id="progress-percent">
                     0%
                 </strong>
 
             </div>
 
 
-            <div class="progress-track">
+            <div class="progress-bar">
 
                 <div
-                    id="progress-bar"
-                    class="progress-bar"
+                    id="progress-fill"
+                    class="progress-fill"
                 ></div>
 
             </div>
@@ -433,8 +374,7 @@
         </section>
 
 
-
-        <!-- TASKS -->
+        <!-- ================= TASK LIST ================= -->
 
         <section class="tasks-section">
 
@@ -442,120 +382,80 @@
 
                 <div>
 
-                    <p class="eyebrow">
-                        TASKS
-                    </p>
+                    <span class="small-label">
+                        TASK BASE
+                    </span>
 
-                    <h2>
-                        Your task base
-                    </h2>
+                    <h2>Your tasks</h2>
 
                 </div>
-
-
-                <button
-                    id="clear-btn"
-                    class="secondary-btn"
-                >
-                    Clear completed
-                </button>
 
             </div>
 
 
-            <!-- FILTERS -->
+            <!-- CONTROLS -->
 
-            <div class="filters">
+            <div class="task-controls">
 
+                <div class="filter-buttons">
 
-                <div class="input-group">
-
-                    <label for="search-input">
-                        Search
-                    </label>
-
-                    <input
-                        type="text"
-                        id="search-input"
-                        placeholder="Search tasks..."
+                    <button
+                        class="filter-btn active"
+                        data-filter="all"
                     >
+                        All
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="pending"
+                    >
+                        Pending
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="completed"
+                    >
+                        Completed
+                    </button>
+
+                    <button
+                        class="filter-btn"
+                        data-filter="overdue"
+                    >
+                        Overdue
+                    </button>
 
                 </div>
 
 
-                <div class="input-group">
-
-                    <label for="area-filter">
-                        Area
-                    </label>
-
-                    <select id="area-filter">
-
-                        <option value="all">
-                            All areas
-                        </option>
-
-                    </select>
-
-                </div>
+                <input
+                    type="search"
+                    id="search-input"
+                    placeholder="Search tasks..."
+                >
 
 
-                <div class="input-group">
+                <select id="sort-select">
 
-                    <label for="priority-filter">
-                        Priority
-                    </label>
+                    <option value="newest">
+                        Newest
+                    </option>
 
-                    <select id="priority-filter">
+                    <option value="oldest">
+                        Oldest
+                    </option>
 
-                        <option value="all">
-                            All priorities
-                        </option>
+                    <option value="deadline">
+                        Deadline
+                    </option>
 
-                        <option value="high">
-                            High
-                        </option>
+                    <option value="alphabetical">
+                        Alphabetical
+                    </option>
 
-                        <option value="medium">
-                            Medium
-                        </option>
-
-                        <option value="low">
-                            Low
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="sort-select">
-                        Sort
-                    </label>
-
-                    <select id="sort-select">
-
-                        <option value="newest">
-                            Newest
-                        </option>
-
-                        <option value="oldest">
-                            Oldest
-                        </option>
-
-                        <option value="deadline">
-                            Deadline
-                        </option>
-
-                        <option value="priority">
-                            Priority
-                        </option>
-
-                    </select>
-
-                </div>
+                </select>
 
             </div>
 
@@ -567,15 +467,28 @@
                 class="task-list"
             ></div>
 
+
+            <div
+                id="empty-state"
+                class="empty-state"
+            >
+                <div class="empty-icon">
+                    ✓
+                </div>
+
+                <h3>No tasks yet</h3>
+
+                <p>
+                    Create your first task and start making progress.
+                </p>
+            </div>
+
         </section>
 
     </main>
 
 
-
-    <!-- ========================= -->
-    <!-- EDIT MODAL -->
-    <!-- ========================= -->
+    <!-- ================= EDIT MODAL ================= -->
 
     <div
         id="edit-modal"
@@ -584,16 +497,20 @@
 
         <div class="modal-content">
 
-
             <div class="modal-header">
 
-                <h2>
-                    Edit Task
-                </h2>
+                <div>
+                    <span class="small-label">
+                        EDIT TASK
+                    </span>
+
+                    <h2>Edit task</h2>
+                </div>
 
                 <button
-                    id="close-edit"
+                    id="close-modal"
                     class="close-btn"
+                    type="button"
                 >
                     ×
                 </button>
@@ -601,55 +518,51 @@
             </div>
 
 
-            <div class="modal-body">
+            <form id="edit-form">
 
+                <div class="form-group">
 
-                <div class="input-group">
-
-                    <label for="edit-title">
+                    <label for="edit-task">
                         Task
                     </label>
 
                     <input
                         type="text"
-                        id="edit-title"
+                        id="edit-task"
+                        required
                     >
 
                 </div>
 
 
-                <div class="input-group">
+                <!-- EDIT AREA DROPDOWN -->
+
+                <div class="form-group">
 
                     <label for="edit-area">
                         Area
                     </label>
 
-                    <input
-                        type="text"
-                        id="edit-area"
-                    >
+                    <select id="edit-area">
 
-                </div>
-
-
-                <div class="input-group">
-
-                    <label for="edit-priority">
-                        Priority
-                    </label>
-
-                    <select id="edit-priority">
-
-                        <option value="low">
-                            Low
+                        <option value="School">
+                            School
                         </option>
 
-                        <option value="medium">
-                            Medium
+                        <option value="Coding">
+                            Coding
                         </option>
 
-                        <option value="high">
-                            High
+                        <option value="Personal">
+                            Personal
+                        </option>
+
+                        <option value="Work">
+                            Work
+                        </option>
+
+                        <option value="Other">
+                            Other
                         </option>
 
                     </select>
@@ -657,7 +570,7 @@
                 </div>
 
 
-                <div class="input-group">
+                <div class="form-group">
 
                     <label for="edit-deadline">
                         Deadline
@@ -670,79 +583,49 @@
 
                 </div>
 
-            </div>
 
+                <div class="modal-actions">
 
-            <div class="modal-actions">
+                    <button
+                        type="button"
+                        id="cancel-edit"
+                        class="secondary-btn"
+                    >
+                        Cancel
+                    </button>
 
-                <button
-                    id="cancel-edit"
-                    class="secondary-btn"
-                >
-                    Cancel
-                </button>
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Save Changes
+                    </button>
 
-                <button
-                    id="save-edit"
-                    class="primary-btn"
-                >
-                    Save changes
-                </button>
+                </div>
 
-            </div>
+            </form>
 
         </div>
 
     </div>
 
 
+    <!-- ================= FOOTER ================= -->
 
-    <!-- JAVASCRIPT -->
+    <footer>
+
+        <p>
+            VTASKBASE
+        </p>
+
+        <span>
+            Built with focus.
+        </span>
+
+    </footer>
+
 
     <script src="app.js"></script>
 
-
-    <!-- SERVICE WORKER -->
-
-    <script>
-
-        if ("serviceWorker" in navigator) {
-
-            window.addEventListener(
-                "load",
-                function () {
-
-                    navigator.serviceWorker
-                        .register(
-                            "service-worker.js"
-                        )
-                        .then(
-                            function () {
-
-                                console.log(
-                                    "VTASKBASE service worker registered."
-                                );
-
-                            }
-                        )
-                        .catch(
-                            function (error) {
-
-                                console.log(
-                                    "Service worker registration failed:",
-                                    error
-                                );
-
-                            }
-                        );
-
-                }
-            );
-
-        }
-
-    </script>
-
 </body>
-
 </html>
