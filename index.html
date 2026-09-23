@@ -4,31 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My To-Do App</title>
+    <title>VTASKBASE - Task Manager</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="todo-container">
+    <div class="app">
 
-        <h1>My To-Do List</h1>
+        <!-- Header -->
+        <header class="header">
+            <div>
+                <p class="brand">VTASKBASE</p>
+                <h1>Task Manager</h1>
+                <p class="subtitle">Organize your work. Track your progress.</p>
+            </div>
+        </header>
 
-        <div class="input-area">
 
-            <input 
-                type="text" 
-                id="task-input" 
-                placeholder="Enter a task...">
+        <!-- Dashboard -->
+        <section class="dashboard">
 
-            <button id="add-btn">Add</button>
+            <div class="stat-card">
+                <span>Total</span>
+                <strong id="total-tasks">0</strong>
+            </div>
 
-        </div>
+            <div class="stat-card">
+                <span>Completed</span>
+                <strong id="completed-tasks">0</strong>
+            </div>
 
-        <ul id="task-list"></ul>
+            <div class="stat-card">
+                <span>Pending</span>
+                <strong id="pending-tasks">0</strong>
+            </div>
+
+        </section>
+
+
+        <!-- Add Task -->
+        <section class="task-form">
+
+            <input
+                type="text"
+                id="task-input"
+                placeholder="Enter a task..."
+            >
+
+            <select id="priority-input">
+                <option value="Low">Low Priority</option>
+                <option value="Medium" selected>Medium Priority</option>
+                <option value="High">High Priority</option>
+            </select>
+
+            <input
+                type="text"
+                id="category-input"
+                placeholder="Category"
+            >
+
+            <input
+                type="date"
+                id="deadline-input"
+            >
+
+            <button id="add-btn">Add Task</button>
+
+        </section>
+
+
+        <!-- Progress -->
+        <section class="progress-section">
+
+            <div class="progress-header">
+                <span>Overall Progress</span>
+                <strong id="progress-text">0%</strong>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+
+        </section>
+
+
+        <!-- Tasks -->
+        <section class="tasks-section">
+
+            <div class="section-heading">
+                <h2>Your Tasks</h2>
+
+                <button id="clear-btn" class="clear-btn">
+                    Clear All
+                </button>
+            </div>
+
+            <ul id="task-list"></ul>
+
+            <p id="empty-message">
+                No tasks yet. Add your first task.
+            </p>
+
+        </section>
 
     </div>
-
 
     <script src="app.js"></script>
 
