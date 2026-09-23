@@ -2,23 +2,44 @@
 // GET HTML ELEMENTS
 // ===============================
 
-const taskInput = document.getElementById("task-input");
-const areaInput = document.getElementById("area-input");
-const priorityInput = document.getElementById("priority-input");
-const deadlineInput = document.getElementById("deadline-input");
+const taskInput =
+    document.getElementById("task-input");
 
-const addTaskBtn = document.getElementById("add-task-btn");
+const areaInput =
+    document.getElementById("area-input");
 
-const taskList = document.getElementById("task-list");
+const priorityInput =
+    document.getElementById("priority-input");
 
-const searchInput = document.getElementById("search-input");
-const areaFilter = document.getElementById("area-filter");
-const priorityFilter = document.getElementById("priority-filter");
-const sortSelect = document.getElementById("sort-select");
+const deadlineInput =
+    document.getElementById("deadline-input");
 
-const clearBtn = document.getElementById("clear-btn");
-const themeBtn = document.getElementById("theme-btn");
-const installBtn = document.getElementById("install-btn");
+const addTaskBtn =
+    document.getElementById("add-task-btn");
+
+const taskList =
+    document.getElementById("task-list");
+
+const searchInput =
+    document.getElementById("search-input");
+
+const areaFilter =
+    document.getElementById("area-filter");
+
+const priorityFilter =
+    document.getElementById("priority-filter");
+
+const sortSelect =
+    document.getElementById("sort-select");
+
+const clearBtn =
+    document.getElementById("clear-btn");
+
+const themeBtn =
+    document.getElementById("theme-btn");
+
+const installBtn =
+    document.getElementById("install-btn");
 
 
 // ===============================
@@ -47,7 +68,7 @@ function saveTasks() {
 
 // ===============================
 // CONVERT DATETIME-LOCAL
-// TO REAL LOCAL TIME
+// TO LOCAL TIME
 // ===============================
 
 function getLocalDateTime(value) {
@@ -56,50 +77,70 @@ function getLocalDateTime(value) {
         return null;
     }
 
+
     /*
-        datetime-local gives something like:
+        datetime-local gives:
 
         2026-09-23T17:30
 
-        It does NOT contain a timezone.
-
-        We manually create the Date so that
-        17:30 means 5:30 PM on the user's
-        local clock.
+        We manually create the Date so
+        the selected time is treated as
+        the user's local time.
     */
 
     if (value.includes("T")) {
 
-        const parts = value.split("T");
+        const parts =
+            value.split("T");
+
 
         if (parts.length !== 2) {
             return null;
         }
 
+
         const dateParts =
-            parts[0].split("-").map(Number);
+            parts[0]
+                .split("-")
+                .map(Number);
+
 
         const timeParts =
-            parts[1].split(":").map(Number);
+            parts[1]
+                .split(":")
+                .map(Number);
+
 
         if (
             dateParts.length !== 3 ||
             timeParts.length < 2
         ) {
+
             return null;
+
         }
 
-        const year = dateParts[0];
-        const month = dateParts[1] - 1;
-        const day = dateParts[2];
 
-        const hour = timeParts[0];
-        const minute = timeParts[1];
+        const year =
+            dateParts[0];
+
+        const month =
+            dateParts[1] - 1;
+
+        const day =
+            dateParts[2];
+
+        const hour =
+            timeParts[0];
+
+        const minute =
+            timeParts[1];
 
         const second =
             timeParts.length >= 3
                 ? timeParts[2]
                 : 0;
+
 
         const date =
             new Date(
@@ -112,22 +153,24 @@ function getLocalDateTime(value) {
                 0
             );
 
-        if (isNaN(date.getTime())) {
+
+        if (
+            isNaN(date.getTime())
+        ) {
+
             return null;
+
         }
 
+
         return date;
+
     }
 
 
     /*
-        This also supports older tasks that
-        may have been saved using only:
-
-        2026-09-23
-
-        Such a task is treated as ending
-        at 11:59:59 PM on that day.
+        Support old tasks that may have
+        only a date saved.
     */
 
     if (
@@ -135,11 +178,20 @@ function getLocalDateTime(value) {
     ) {
 
         const dateParts =
-            value.split("-").map(Number);
+            value
+                .split("-")
+                .map(Number);
 
-        const year = dateParts[0];
-        const month = dateParts[1] - 1;
-        const day = dateParts[2];
+
+        const year =
+            dateParts[0];
+
+        const month =
+            dateParts[1] - 1;
+
+        const day =
+            dateParts[2];
+
 
         const date =
             new Date(
@@ -152,20 +204,28 @@ function getLocalDateTime(value) {
                 999
             );
 
-        if (isNaN(date.getTime())) {
+
+        if (
+            isNaN(date.getTime())
+        ) {
+
             return null;
+
         }
 
+
         return date;
+
     }
 
 
     return null;
+
 }
 
 
 // ===============================
-// GET DEADLINE TIMESTAMP
+// GET DEADLINE TIME
 // ===============================
 
 function getDeadlineTime(deadline) {
@@ -173,11 +233,14 @@ function getDeadlineTime(deadline) {
     const date =
         getLocalDateTime(deadline);
 
+
     if (!date) {
         return null;
     }
 
+
     return date.getTime();
+
 }
 
 
@@ -190,9 +253,11 @@ function formatDeadline(deadline) {
     const date =
         getLocalDateTime(deadline);
 
+
     if (!date) {
         return "";
     }
+
 
     return date.toLocaleString(
         undefined,
@@ -201,6 +266,7 @@ function formatDeadline(deadline) {
             timeStyle: "short"
         }
     );
+
 }
 
 
@@ -213,7 +279,10 @@ function getCountdown(deadline) {
     const deadlineTime =
         getDeadlineTime(deadline);
 
-    if (deadlineTime === null) {
+
+    if (
+        deadlineTime === null
+    ) {
 
         return {
             text: "NO DEADLINE",
@@ -222,17 +291,22 @@ function getCountdown(deadline) {
 
     }
 
-    const now = Date.now();
+
+    const now =
+        Date.now();
+
 
     const difference =
         deadlineTime - now;
 
 
     // ===========================
-    // DEADLINE HAS PASSED
+    // OVERDUE
     // ===========================
 
-    if (difference <= 0) {
+    if (
+        difference <= 0
+    ) {
 
         return {
             text: "OVERDUE",
@@ -252,24 +326,25 @@ function getCountdown(deadline) {
         );
 
 
-    // ===========================
-    // CALCULATE TIME
-    // ===========================
-
     const days =
         Math.floor(
             totalSeconds / 86400
         );
 
+
     const hours =
         Math.floor(
-            (totalSeconds % 86400) / 3600
+            (totalSeconds % 86400) /
+            3600
         );
+
 
     const minutes =
         Math.floor(
-            (totalSeconds % 3600) / 60
+            (totalSeconds % 3600) /
+            60
         );
+
 
     const seconds =
         totalSeconds % 60;
@@ -278,39 +353,35 @@ function getCountdown(deadline) {
     let text = "";
 
 
-    // DAYS
+    if (
+        days > 0
+    ) {
 
-    if (days > 0) {
-
-        text += `${days}d `;
+        text +=
+            `${days}d `;
 
     }
 
-
-    // HOURS
 
     text +=
         `${String(hours).padStart(2, "0")}h `;
 
 
-    // MINUTES
-
     text +=
         `${String(minutes).padStart(2, "0")}m `;
 
-
-    // SECONDS
 
     text +=
         `${String(seconds).padStart(2, "0")}s`;
 
 
     // ===========================
-    // COUNTDOWN COLOR
+    // COUNTDOWN STATUS
     // ===========================
 
     const className =
-        difference <= 60 * 60 * 1000
+        difference <=
+        60 * 60 * 1000
             ? "soon"
             : "normal";
 
@@ -329,12 +400,15 @@ function getCountdown(deadline) {
 
 function getVisibleTasks() {
 
-    let visibleTasks = [...tasks];
+    let visibleTasks =
+        [...tasks];
 
 
     const search =
         searchInput
-            ? searchInput.value.toLowerCase().trim()
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
             : "";
 
 
@@ -394,7 +468,8 @@ function getVisibleTasks() {
                 function (task) {
 
                     return (
-                        task.area === selectedArea
+                        task.area ===
+                        selectedArea
                     );
 
                 }
@@ -428,7 +503,7 @@ function getVisibleTasks() {
 
 
     // ===========================
-    // SORT
+    // SORTING
     // ===========================
 
     if (sortSelect) {
@@ -439,7 +514,9 @@ function getVisibleTasks() {
 
         // NEWEST
 
-        if (sort === "newest") {
+        if (
+            sort === "newest"
+        ) {
 
             visibleTasks.sort(
                 function (a, b) {
@@ -457,7 +534,9 @@ function getVisibleTasks() {
 
         // OLDEST
 
-        if (sort === "oldest") {
+        if (
+            sort === "oldest"
+        ) {
 
             visibleTasks.sort(
                 function (a, b) {
@@ -475,7 +554,9 @@ function getVisibleTasks() {
 
         // DEADLINE
 
-        if (sort === "deadline") {
+        if (
+            sort === "deadline"
+        ) {
 
             visibleTasks.sort(
                 function (a, b) {
@@ -485,22 +566,35 @@ function getVisibleTasks() {
                             a.deadline
                         );
 
+
                     const bTime =
                         getDeadlineTime(
                             b.deadline
                         );
 
 
-                    if (aTime === null) {
+                    if (
+                        aTime === null
+                    ) {
+
                         return 1;
+
                     }
 
-                    if (bTime === null) {
+
+                    if (
+                        bTime === null
+                    ) {
+
                         return -1;
+
                     }
 
 
-                    return aTime - bTime;
+                    return (
+                        aTime -
+                        bTime
+                    );
 
                 }
             );
@@ -510,12 +604,18 @@ function getVisibleTasks() {
 
         // PRIORITY
 
-        if (sort === "priority") {
+        if (
+            sort === "priority"
+        ) {
 
             const priorityOrder = {
+
                 high: 1,
+
                 medium: 2,
+
                 low: 3
+
             };
 
 
@@ -523,8 +623,12 @@ function getVisibleTasks() {
                 function (a, b) {
 
                     return (
-                        priorityOrder[a.priority] -
-                        priorityOrder[b.priority]
+                        priorityOrder[
+                            a.priority
+                        ] -
+                        priorityOrder[
+                            b.priority
+                        ]
                     );
 
                 }
@@ -549,8 +653,10 @@ function escapeHTML(text) {
     const div =
         document.createElement("div");
 
+
     div.textContent =
         text;
+
 
     return div.innerHTML;
 
@@ -579,7 +685,9 @@ function renderTasks() {
     // NO TASKS
     // ===========================
 
-    if (visibleTasks.length === 0) {
+    if (
+        visibleTasks.length === 0
+    ) {
 
         taskList.innerHTML = `
 
@@ -590,16 +698,19 @@ function renderTasks() {
                 </h3>
 
                 <p>
-                    Add a task or change your filters.
+                    Add a task or change
+                    your filters.
                 </p>
 
             </div>
 
         `;
 
+
         updateDashboard();
 
         return;
+
     }
 
 
@@ -611,14 +722,18 @@ function renderTasks() {
         function (task) {
 
             const card =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             card.className =
                 "task-card";
 
 
-            if (task.completed) {
+            if (
+                task.completed
+            ) {
 
                 card.classList.add(
                     "completed"
@@ -633,12 +748,17 @@ function renderTasks() {
                 );
 
 
-            let countdownHTML = "";
+            let countdownHTML =
+                "";
 
 
-            if (task.deadline) {
+            if (
+                task.deadline
+            ) {
 
-                if (task.completed) {
+                if (
+                    task.completed
+                ) {
 
                     countdownHTML = `
 
@@ -652,7 +772,9 @@ function renderTasks() {
 
                 }
 
-                else if (countdown) {
+                else if (
+                    countdown
+                ) {
 
                     countdownHTML = `
 
@@ -759,7 +881,9 @@ function renderTasks() {
             `;
 
 
-            taskList.appendChild(card);
+            taskList.appendChild(
+                card
+            );
 
         }
     );
@@ -770,7 +894,9 @@ function renderTasks() {
     // ===========================
 
     document
-        .querySelectorAll(".task-checkbox")
+        .querySelectorAll(
+            ".task-checkbox"
+        )
         .forEach(
             function (checkbox) {
 
@@ -794,7 +920,9 @@ function renderTasks() {
     // ===========================
 
     document
-        .querySelectorAll(".edit-btn")
+        .querySelectorAll(
+            ".edit-btn"
+        )
         .forEach(
             function (button) {
 
@@ -818,7 +946,9 @@ function renderTasks() {
     // ===========================
 
     document
-        .querySelectorAll(".delete-btn")
+        .querySelectorAll(
+            ".delete-btn"
+        )
         .forEach(
             function (button) {
 
@@ -862,7 +992,9 @@ function updateCountdowns() {
 
 
             const countdown =
-                getCountdown(deadline);
+                getCountdown(
+                    deadline
+                );
 
 
             if (!countdown) {
@@ -895,7 +1027,7 @@ function updateCountdowns() {
 
 
 // ===============================
-// RUN COUNTDOWN EVERY SECOND
+// COUNTDOWN RUNS EVERY SECOND
 // ===============================
 
 setInterval(
@@ -919,9 +1051,17 @@ function addTask() {
         taskInput.value.trim();
 
 
+    /*
+        IMPORTANT:
+        Area is a SELECT/DROPDOWN.
+
+        We DO NOT use .trim()
+        here.
+    */
+
     const area =
         areaInput
-            ? areaInput.value.trim()
+            ? areaInput.value
             : "General";
 
 
@@ -938,7 +1078,7 @@ function addTask() {
 
 
     // ===========================
-    // CHECK TITLE
+    // CHECK TASK TITLE
     // ===========================
 
     if (!title) {
@@ -948,6 +1088,7 @@ function addTask() {
         );
 
         return;
+
     }
 
 
@@ -958,21 +1099,27 @@ function addTask() {
     if (deadline) {
 
         const deadlineTime =
-            getDeadlineTime(deadline);
+            getDeadlineTime(
+                deadline
+            );
 
 
-        if (deadlineTime === null) {
+        if (
+            deadlineTime === null
+        ) {
 
             alert(
                 "Please choose a valid deadline."
             );
 
             return;
+
         }
 
 
         if (
-            deadlineTime <= Date.now()
+            deadlineTime <=
+            Date.now()
         ) {
 
             alert(
@@ -980,6 +1127,7 @@ function addTask() {
             );
 
             return;
+
         }
 
     }
@@ -1026,19 +1174,25 @@ function addTask() {
 
 
     // ===========================
-    // CLEAR INPUTS
+    // CLEAR TEXT INPUTS
     // ===========================
 
     taskInput.value = "";
 
 
-    if (areaInput) {
-        areaInput.value = "";
-    }
+    /*
+        DO NOT CLEAR areaInput.
+
+        It is a dropdown, so the selected
+        option stays available for the
+        next task.
+    */
 
 
     if (deadlineInput) {
+
         deadlineInput.value = "";
+
     }
 
 }
@@ -1054,7 +1208,9 @@ function toggleTask(id) {
         tasks.map(
             function (task) {
 
-                if (task.id === id) {
+                if (
+                    task.id === id
+                ) {
 
                     return {
 
@@ -1331,6 +1487,11 @@ function openEditModal(id) {
     }
 
 
+    /*
+        editArea is a SELECT dropdown,
+        so we simply select its value.
+    */
+
     if (editArea) {
 
         editArea.value =
@@ -1454,18 +1615,22 @@ function saveEdit() {
             );
 
 
-        if (deadlineTime === null) {
+        if (
+            deadlineTime === null
+        ) {
 
             alert(
                 "Please choose a valid deadline."
             );
 
             return;
+
         }
 
 
         if (
-            deadlineTime <= Date.now()
+            deadlineTime <=
+            Date.now()
         ) {
 
             alert(
@@ -1473,6 +1638,7 @@ function saveEdit() {
             );
 
             return;
+
         }
 
     }
@@ -1486,7 +1652,9 @@ function saveEdit() {
         tasks.map(
             function (task) {
 
-                if (task.id === id) {
+                if (
+                    task.id === id
+                ) {
 
                     return {
 
@@ -1497,10 +1665,13 @@ function saveEdit() {
                                 ? editTitle.value.trim()
                                 : task.title,
 
+                        /*
+                            Area remains a dropdown.
+                        */
+
                         area:
                             editArea
-                                ? editArea.value.trim() ||
-                                  "General"
+                                ? editArea.value
                                 : task.area,
 
                         priority:
