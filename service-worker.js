@@ -1,8 +1,6 @@
-const CACHE_NAME = "vtaskbase-v1";
-
+const CACHE_NAME = "vtaskbase-v2";
 
 const FILES_TO_CACHE = [
-
     "./",
     "./index.html",
     "./style.css",
@@ -11,105 +9,53 @@ const FILES_TO_CACHE = [
     "./manifest.json",
     "./icons/icon-192.png",
     "./icons/icon-512.png"
-
 ];
 
+self.addEventListener("install", function(event) {
 
-self.addEventListener(
-    "install",
-    function(event) {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(function(cache) {
+                return cache.addAll(FILES_TO_CACHE);
+            })
+    );
 
-        event.waitUntil(
+});
 
-            caches.open(CACHE_NAME)
+self.addEventListener("activate", function(event) {
 
-                .then(
-                    function(cache) {
+    event.waitUntil(
+        caches.keys()
+            .then(function(cacheNames) {
 
-                        return cache.addAll(
-                            FILES_TO_CACHE
-                        );
+                return Promise.all(
+                    cacheNames
+                        .filter(function(cacheName) {
+                            return cacheName !== CACHE_NAME;
+                        })
+                        .map(function(cacheName) {
+                            return caches.delete(cacheName);
+                        })
+                );
 
-                    }
-                )
+            })
+    );
 
-        );
+});
 
-    }
-);
+self.addEventListener("fetch", function(event) {
 
+    event.respondWith(
+        caches.match(event.request)
+            .then(function(response) {
 
-self.addEventListener(
-    "activate",
-    function(event) {
+                if (response) {
+                    return response;
+                }
 
-        event.waitUntil(
+                return fetch(event.request);
 
-            caches.keys()
+            })
+    );
 
-                .then(
-                    function(cacheNames) {
-
-                        return Promise.all(
-
-                            cacheNames
-
-                                .filter(
-                                    function(cacheName) {
-
-                                        return cacheName !==
-                                            CACHE_NAME;
-
-                                    }
-                                )
-
-                                .map(
-                                    function(cacheName) {
-
-                                        return caches.delete(
-                                            cacheName
-                                        );
-
-                                    }
-                                )
-
-                        );
-
-                    }
-                )
-
-        );
-
-    }
-);
-
-
-self.addEventListener(
-    "fetch",
-    function(event) {
-
-        event.respondWith(
-
-            caches.match(event.request)
-
-                .then(
-                    function(response) {
-
-                        if (response) {
-
-                            return response;
-
-                        }
-
-
-                        return fetch(
-                            event.request
-                        );
-
-                    }
-                )
-
-        );
-
-    }
-);
+});

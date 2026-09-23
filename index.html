@@ -10,255 +10,173 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>VTASKBASE — Task Manager</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>VTASKBASE</title>
 
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
 
-    <meta name="theme-color" content="#080b10">
+    <meta
+        name="theme-color"
+        content="#080b10"
+    >
+
+    <!-- CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
-
 <body>
 
-    <div class="app">
+    <!-- ===============================
+         TOP BAR
+    ================================ -->
+
+    <div class="top-bar">
+
+        <div class="brand">
+
+            <img
+                src="Valtivor Logo.png"
+                alt="VALTIVOR"
+                class="valtivor-logo"
+            >
+
+        </div>
+
+        <div class="top-actions">
+
+            <button
+                id="install-btn"
+                class="install-btn"
+                title="Install VTASKBASE"
+            >
+                📲 Install
+            </button>
+
+            <button
+                id="theme-btn"
+                class="theme-btn"
+                title="Change theme"
+            >
+                ☀
+            </button>
+
+        </div>
+
+    </div>
 
 
-        <!-- =========================
-             TOP BAR
-        ========================== -->
+    <!-- ===============================
+         MAIN CONTENT
+    ================================ -->
 
-        <header class="top-bar">
+    <main class="container">
 
-            <a href="#" class="valtivor-link">
+        <!-- HEADER -->
 
-                <img
-                    src="Valtivor Logo.png"
-                    alt="VALTIVOR"
-                    class="valtivor-logo"
-                >
+        <header class="hero">
 
-                <span>VALTIVOR</span>
-
-            </a>
-
-
-            <div class="top-actions">
-
-                <button
-                    id="install-btn"
-                    class="install-btn"
-                    title="Install VTASKBASE"
-                >
-                    📲 Install
-                </button>
-
-
-                <button
-                    id="theme-btn"
-                    class="theme-btn"
-                    title="Change theme"
-                >
-                    ☀
-                </button>
-
-            </div>
-
-        </header>
-
-
-
-        <!-- =========================
-             HEADER
-        ========================== -->
-
-        <header class="header">
-
-            <p class="brand">
+            <p class="eyebrow">
                 VTASKBASE
             </p>
 
             <h1>
-                Your tasks. Your progress. Your focus.
+                Your tasks.
+                Your progress.
+                Your focus.
             </h1>
 
-            <p class="subtitle">
-                Organize your work, stay focused, and get things done.
+            <p class="hero-text">
+                Organize what matters, track your progress,
+                and stay focused on what needs to get done.
             </p>
 
         </header>
 
 
-
-        <!-- =========================
+        <!-- ===============================
              HOW TO USE
-        ========================== -->
+        ================================ -->
 
-        <section class="how-to">
+        <section class="card how-to">
 
-            <div class="section-intro">
+            <h2>
+                How to use VTASKBASE
+            </h2>
 
-                <span class="guide-label">
-                    GETTING STARTED
-                </span>
+            <div class="how-grid">
 
-                <h2>
-                    How to use VTASKBASE
-                </h2>
-
-                <p>
-                    Manage your tasks in four simple steps.
-                </p>
-
-            </div>
-
-
-            <div class="steps">
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        01
-                    </div>
-
-                    <div>
-
-                        <h3>
-                            Create
-                        </h3>
-
-                        <p>
-                            Add something you need to get done.
-                        </p>
-
-                    </div>
-
+                <div>
+                    <strong>01</strong>
+                    <p>
+                        Add a task and choose its area,
+                        priority, and deadline.
+                    </p>
                 </div>
 
-
-                <div class="step">
-
-                    <div class="step-number">
-                        02
-                    </div>
-
-                    <div>
-
-                        <h3>
-                            Organize
-                        </h3>
-
-                        <p>
-                            Choose an area, priority, and deadline.
-                        </p>
-
-                    </div>
-
+                <div>
+                    <strong>02</strong>
+                    <p>
+                        Mark tasks complete when you
+                        finish them.
+                    </p>
                 </div>
 
-
-                <div class="step">
-
-                    <div class="step-number">
-                        03
-                    </div>
-
-                    <div>
-
-                        <h3>
-                            Complete
-                        </h3>
-
-                        <p>
-                            Mark the task complete when finished.
-                        </p>
-
-                    </div>
-
+                <div>
+                    <strong>03</strong>
+                    <p>
+                        Use the dashboard to track
+                        your progress.
+                    </p>
                 </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        04
-                    </div>
-
-                    <div>
-
-                        <h3>
-                            Track
-                        </h3>
-
-                        <p>
-                            Watch your productivity update automatically.
-                        </p>
-
-                    </div>
-
-                </div>
-
 
             </div>
 
         </section>
 
 
-
-        <!-- =========================
+        <!-- ===============================
              FOCUS CARD
-        ========================== -->
+        ================================ -->
 
         <section class="focus-card">
 
             <div>
 
-                <span class="guide-label">
+                <span class="focus-label">
                     TODAY'S FOCUS
                 </span>
 
                 <h2 id="focus-title">
-                    Stay focused.
+                    Stay consistent.
                 </h2>
 
                 <p id="focus-text">
-                    Add your first task and start making progress.
+                    Small progress every day becomes
+                    something bigger.
                 </p>
-
-            </div>
-
-
-            <div class="focus-number">
-
-                <strong id="today-count">
-                    0
-                </strong>
-
-                <span>
-                    due today
-                </span>
 
             </div>
 
         </section>
 
 
-
-        <!-- =========================
+        <!-- ===============================
              DASHBOARD
-        ========================== -->
+        ================================ -->
 
         <section class="dashboard">
-
 
             <div class="stat-card">
 
                 <span>
-                    Total Tasks
+                    TOTAL
                 </span>
 
                 <strong id="total-tasks">
@@ -267,11 +185,10 @@
 
             </div>
 
-
             <div class="stat-card">
 
                 <span>
-                    Completed
+                    COMPLETED
                 </span>
 
                 <strong id="completed-tasks">
@@ -280,11 +197,10 @@
 
             </div>
 
-
             <div class="stat-card">
 
                 <span>
-                    Pending
+                    PENDING
                 </span>
 
                 <strong id="pending-tasks">
@@ -293,11 +209,10 @@
 
             </div>
 
-
             <div class="stat-card">
 
                 <span>
-                    Overdue
+                    OVERDUE
                 </span>
 
                 <strong id="overdue-tasks">
@@ -306,38 +221,35 @@
 
             </div>
 
-
         </section>
 
 
+        <!-- ===============================
+             TASK CREATOR
+        ================================ -->
 
-        <!-- =========================
-             CREATE TASK
-        ========================== -->
+        <section class="card">
 
-        <section class="task-creator">
+            <div class="section-heading">
 
-            <div class="section-intro">
+                <div>
 
-                <span class="guide-label">
-                    TASK CREATOR
-                </span>
+                    <p class="eyebrow">
+                        TASK CREATOR
+                    </p>
 
-                <h2>
-                    Create a task
-                </h2>
+                    <h2>
+                        Add a new task
+                    </h2>
 
-                <p>
-                    Add a task and organize it your way.
-                </p>
+                </div>
 
             </div>
 
 
             <div class="task-form">
 
-
-                <div class="input-group task-name-input">
+                <div class="input-group">
 
                     <label for="task-input">
                         Task
@@ -346,136 +258,124 @@
                     <input
                         type="text"
                         id="task-input"
-                        placeholder="What needs to be done?"
+                        placeholder="What do you need to do?"
                     >
 
                 </div>
 
 
-                <div class="input-group">
+                <div class="input-row">
 
-                    <label for="category-input">
-                        Area
-                    </label>
+                    <div class="input-group">
 
-                    <select id="category-input">
+                        <label for="area-input">
+                            Area
+                        </label>
 
-                        <option value="Coding">
-                            💻 Coding
-                        </option>
+                        <select id="area-input">
 
-                        <option value="School">
-                            🎓 School
-                        </option>
+                            <option value="Personal">
+                                Personal
+                            </option>
 
-                        <option value="Reading">
-                            📖 Reading
-                        </option>
+                            <option value="School">
+                                School
+                            </option>
 
-                        <option value="Faith">
-                            🙏 Faith
-                        </option>
+                            <option value="Work">
+                                Work
+                            </option>
 
-                        <option value="Fitness">
-                            🏋️ Fitness
-                        </option>
+                            <option value="Coding">
+                                Coding
+                            </option>
 
-                        <option value="Music">
-                            🎹 Music
-                        </option>
+                            <option value="Other">
+                                Other
+                            </option>
 
-                        <option value="Work">
-                            💼 Work
-                        </option>
+                        </select>
 
-                        <option value="Projects">
-                            🚀 Projects
-                        </option>
-
-                        <option value="Personal">
-                            👤 Personal
-                        </option>
-
-                        <option value="Other">
-                            📌 Other
-                        </option>
-
-                    </select>
-
-                </div>
+                    </div>
 
 
-                <div class="input-group">
+                    <div class="input-group">
 
-                    <label for="priority-input">
-                        Priority
-                    </label>
+                        <label for="priority-input">
+                            Priority
+                        </label>
 
-                    <select id="priority-input">
+                        <select id="priority-input">
 
-                        <option value="Low">
-                            🟢 Low
-                        </option>
+                            <option value="Low">
+                                Low
+                            </option>
 
-                        <option value="Medium" selected>
-                            🟡 Medium
-                        </option>
+                            <option
+                                value="Medium"
+                                selected
+                            >
+                                Medium
+                            </option>
 
-                        <option value="High">
-                            🔴 High
-                        </option>
+                            <option value="High">
+                                High
+                            </option>
 
-                    </select>
+                        </select>
 
-                </div>
+                    </div>
 
 
-                <div class="input-group">
+                    <div class="input-group">
 
-                    <label for="deadline-input">
-                        Deadline
-                    </label>
+                        <label for="deadline-input">
+                            Deadline
+                        </label>
 
-                    <input
-                        type="date"
-                        id="deadline-input"
-                    >
+                        <input
+                            type="date"
+                            id="deadline-input"
+                        >
+
+                    </div>
 
                 </div>
 
+
+                <button
+                    id="add-task-btn"
+                    class="primary-btn"
+                >
+                    + Add Task
+                </button>
 
             </div>
-
-
-            <button id="add-btn">
-                + Add Task
-            </button>
 
         </section>
 
 
-
-        <!-- =========================
+        <!-- ===============================
              PROGRESS
-        ========================== -->
+        ================================ -->
 
-        <section class="progress-section">
+        <section class="card">
 
             <div class="progress-header">
 
                 <div>
 
-                    <span>
-                        Overall Progress
-                    </span>
-
-                    <p>
-                        Every completed task counts.
+                    <p class="eyebrow">
+                        PROGRESS
                     </p>
+
+                    <h2>
+                        Your progress
+                    </h2>
 
                 </div>
 
-                <strong id="progress-text">
+                <strong id="progress-percent">
                     0%
                 </strong>
 
@@ -484,39 +384,39 @@
 
             <div class="progress-bar">
 
-                <div id="progress-fill"></div>
+                <div
+                    id="progress-fill"
+                    class="progress-fill"
+                ></div>
 
             </div>
 
         </section>
 
 
+        <!-- ===============================
+             TASK LIST
+        ================================ -->
 
-        <!-- =========================
-             TASK SECTION
-        ========================== -->
-
-        <section class="task-section">
-
+        <section class="card">
 
             <div class="section-heading">
 
                 <div>
 
-                    <span class="guide-label">
-                        YOUR WORK
-                    </span>
+                    <p class="eyebrow">
+                        TASKS
+                    </p>
 
                     <h2>
-                        Your Tasks
+                        Your task list
                     </h2>
 
                 </div>
 
-
                 <button
-                    id="clear-btn"
-                    class="clear-btn"
+                    id="clear-all-btn"
+                    class="danger-btn"
                 >
                     Clear All
                 </button>
@@ -524,74 +424,41 @@
             </div>
 
 
-
             <!-- SEARCH -->
 
-            <div class="search-box">
-
-                <span>
-                    🔎
-                </span>
+            <div class="controls">
 
                 <input
                     type="text"
                     id="search-input"
-                    placeholder="Search your tasks..."
+                    placeholder="Search tasks..."
                 >
-
-            </div>
-
-
-
-            <!-- FILTERS -->
-
-            <div class="controls">
 
 
                 <select id="area-filter">
 
                     <option value="All">
-                        All Areas
-                    </option>
-
-                    <option value="Coding">
-                        💻 Coding
-                    </option>
-
-                    <option value="School">
-                        🎓 School
-                    </option>
-
-                    <option value="Reading">
-                        📖 Reading
-                    </option>
-
-                    <option value="Faith">
-                        🙏 Faith
-                    </option>
-
-                    <option value="Fitness">
-                        🏋️ Fitness
-                    </option>
-
-                    <option value="Music">
-                        🎹 Music
-                    </option>
-
-                    <option value="Work">
-                        💼 Work
-                    </option>
-
-                    <option value="Projects">
-                        🚀 Projects
+                        All areas
                     </option>
 
                     <option value="Personal">
-                        👤 Personal
+                        Personal
+                    </option>
+
+                    <option value="School">
+                        School
+                    </option>
+
+                    <option value="Work">
+                        Work
+                    </option>
+
+                    <option value="Coding">
+                        Coding
                     </option>
 
                     <option value="Other">
-                        📌 Other
+                        Other
                     </option>
 
                 </select>
@@ -600,32 +467,32 @@
                 <select id="priority-filter">
 
                     <option value="All">
-                        All Priorities
+                        All priorities
                     </option>
 
                     <option value="High">
-                        🔴 High
+                        High
                     </option>
 
                     <option value="Medium">
-                        🟡 Medium
+                        Medium
                     </option>
 
                     <option value="Low">
-                        🟢 Low
+                        Low
                     </option>
 
                 </select>
 
 
-                <select id="sort-filter">
+                <select id="sort-select">
 
                     <option value="newest">
-                        Newest First
+                        Newest
                     </option>
 
                     <option value="oldest">
-                        Oldest First
+                        Oldest
                     </option>
 
                     <option value="deadline">
@@ -636,52 +503,45 @@
                         Priority
                     </option>
 
-                    <option value="completed">
-                        Completed Last
-                    </option>
-
                 </select>
-
 
             </div>
 
 
+            <!-- TASKS WILL APPEAR HERE -->
 
-            <!-- TASK LIST -->
-
-            <ul id="task-list"></ul>
-
+            <div
+                id="task-list"
+                class="task-list"
+            ></div>
 
 
             <!-- EMPTY STATE -->
 
-            <div id="empty-message">
-
-                <div class="empty-icon">
-                    ✓
-                </div>
+            <div
+                id="empty-state"
+                class="empty-state"
+            >
 
                 <h3>
-                    No tasks found
+                    No tasks yet
                 </h3>
 
                 <p>
-                    Add a task or change your filters.
+                    Add your first task and start
+                    making progress.
                 </p>
 
             </div>
 
-
         </section>
 
-
-    </div>
-
+    </main>
 
 
-    <!-- =========================
+    <!-- ===============================
          EDIT MODAL
-    ========================== -->
+    ================================ -->
 
     <div
         id="edit-modal"
@@ -694,19 +554,19 @@
 
                 <div>
 
-                    <span class="guide-label">
+                    <p class="eyebrow">
                         EDIT TASK
-                    </span>
+                    </p>
 
                     <h2>
-                        Update your task
+                        Update task
                     </h2>
 
                 </div>
 
                 <button
-                    id="close-modal"
-                    class="close-modal"
+                    id="close-modal-btn"
+                    class="close-btn"
                 >
                     ×
                 </button>
@@ -714,58 +574,168 @@
             </div>
 
 
-            <input
-                type="text"
-                id="edit-task-input"
-                placeholder="Task name"
-            >
+            <div class="input-group">
+
+                <label for="edit-task-input">
+                    Task
+                </label>
+
+                <input
+                    type="text"
+                    id="edit-task-input"
+                >
+
+            </div>
 
 
-            <select id="edit-category-input">
+            <div class="input-row">
 
-                <option value="Coding">💻 Coding</option>
-                <option value="School">🎓 School</option>
-                <option value="Reading">📖 Reading</option>
-                <option value="Faith">🙏 Faith</option>
-                <option value="Fitness">🏋️ Fitness</option>
-                <option value="Music">🎹 Music</option>
-                <option value="Work">💼 Work</option>
-                <option value="Projects">🚀 Projects</option>
-                <option value="Personal">👤 Personal</option>
-                <option value="Other">📌 Other</option>
+                <div class="input-group">
 
-            </select>
+                    <label for="edit-area-input">
+                        Area
+                    </label>
+
+                    <select id="edit-area-input">
+
+                        <option value="Personal">
+                            Personal
+                        </option>
+
+                        <option value="School">
+                            School
+                        </option>
+
+                        <option value="Work">
+                            Work
+                        </option>
+
+                        <option value="Coding">
+                            Coding
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
 
 
-            <select id="edit-priority-input">
+                <div class="input-group">
 
-                <option value="Low">🟢 Low</option>
-                <option value="Medium">🟡 Medium</option>
-                <option value="High">🔴 High</option>
+                    <label for="edit-priority-input">
+                        Priority
+                    </label>
 
-            </select>
+                    <select id="edit-priority-input">
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="High">
+                            High
+                        </option>
+
+                    </select>
+
+                </div>
 
 
-            <input
-                type="date"
-                id="edit-deadline-input"
-            >
+                <div class="input-group">
+
+                    <label for="edit-deadline-input">
+                        Deadline
+                    </label>
+
+                    <input
+                        type="date"
+                        id="edit-deadline-input"
+                    >
+
+                </div>
+
+            </div>
 
 
-            <button
-                id="save-edit-btn"
-                class="save-edit-btn"
-            >
-                Save Changes
-            </button>
+            <div class="modal-actions">
+
+                <button
+                    id="cancel-edit-btn"
+                    class="secondary-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    id="save-edit-btn"
+                    class="primary-btn"
+                >
+                    Save Changes
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
 
+    <!-- ===============================
+         JAVASCRIPT
+    ================================ -->
+
     <script src="app.js"></script>
+
+
+    <!-- ===============================
+         SERVICE WORKER
+    ================================ -->
+
+    <script>
+
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener(
+                "load",
+                function() {
+
+                    navigator.serviceWorker
+                        .register(
+                            "service-worker.js"
+                        )
+                        .then(function() {
+
+                            console.log(
+                                "VTASKBASE service worker registered."
+                            );
+
+                        })
+                        .catch(function(error) {
+
+                            console.log(
+                                "Service worker registration failed:",
+                                error
+                            );
+
+                        });
+
+                }
+            );
+
+        }
+
+    </script>
 
 </body>
 
 </html>
+
+
+
