@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -19,21 +20,13 @@
 
     <title>VTASKBASE</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
-    <link
-        rel="manifest"
-        href="manifest.json"
-    >
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
 
-    <!-- ================= HEADER ================= -->
-
+    <!-- HEADER -->
     <header class="topbar">
 
         <div class="brand">
@@ -56,7 +49,7 @@
             <button
                 id="install-btn"
                 class="install-btn"
-                title="Install VTASKBASE"
+                type="button"
             >
                 📲 Install
             </button>
@@ -64,7 +57,7 @@
             <button
                 id="theme-btn"
                 class="theme-btn"
-                title="Change theme"
+                type="button"
             >
                 ☀
             </button>
@@ -74,12 +67,9 @@
     </header>
 
 
-    <!-- ================= MAIN ================= -->
-
     <main class="container">
 
         <!-- HERO -->
-
         <section class="hero">
 
             <div class="hero-content">
@@ -105,7 +95,6 @@
 
 
         <!-- HOW TO USE -->
-
         <section class="info-card">
 
             <h2>How to use VTASKBASE</h2>
@@ -114,25 +103,34 @@
 
                 <div class="step">
                     <span>01</span>
+
                     <div>
                         <h3>Create</h3>
-                        <p>Add a task and choose where it belongs.</p>
+                        <p>
+                            Add a task and choose where it belongs.
+                        </p>
                     </div>
                 </div>
 
                 <div class="step">
                     <span>02</span>
+
                     <div>
                         <h3>Track</h3>
-                        <p>Set a deadline and watch your progress.</p>
+                        <p>
+                            Set a deadline and watch your progress.
+                        </p>
                     </div>
                 </div>
 
                 <div class="step">
                     <span>03</span>
+
                     <div>
                         <h3>Complete</h3>
-                        <p>Finish your tasks and keep moving forward.</p>
+                        <p>
+                            Finish your tasks and keep moving forward.
+                        </p>
                     </div>
                 </div>
 
@@ -142,7 +140,6 @@
 
 
         <!-- FOCUS -->
-
         <section class="focus-card">
 
             <div>
@@ -166,11 +163,11 @@
         </section>
 
 
-        <!-- ================= DASHBOARD ================= -->
-
+        <!-- DASHBOARD -->
         <section class="dashboard">
 
             <div class="section-heading">
+
                 <div>
                     <span class="small-label">
                         OVERVIEW
@@ -178,60 +175,30 @@
 
                     <h2>Dashboard</h2>
                 </div>
+
             </div>
 
 
             <div class="stats-grid">
 
                 <div class="stat-card">
-
-                    <span class="stat-label">
-                        TOTAL
-                    </span>
-
-                    <strong id="total-count">
-                        0
-                    </strong>
-
+                    <span class="stat-label">TOTAL</span>
+                    <strong id="total-count">0</strong>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span class="stat-label">
-                        COMPLETED
-                    </span>
-
-                    <strong id="completed-count">
-                        0
-                    </strong>
-
+                    <span class="stat-label">COMPLETED</span>
+                    <strong id="completed-count">0</strong>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span class="stat-label">
-                        PENDING
-                    </span>
-
-                    <strong id="pending-count">
-                        0
-                    </strong>
-
+                    <span class="stat-label">PENDING</span>
+                    <strong id="pending-count">0</strong>
                 </div>
 
-
                 <div class="stat-card">
-
-                    <span class="stat-label">
-                        OVERDUE
-                    </span>
-
-                    <strong id="overdue-count">
-                        0
-                    </strong>
-
+                    <span class="stat-label">OVERDUE</span>
+                    <strong id="overdue-count">0</strong>
                 </div>
 
             </div>
@@ -239,8 +206,7 @@
         </section>
 
 
-        <!-- ================= CREATE TASK ================= -->
-
+        <!-- CREATE TASK -->
         <section class="creator-card">
 
             <div class="section-heading">
@@ -259,7 +225,6 @@
             <form id="task-form">
 
                 <!-- TASK -->
-
                 <div class="form-group">
 
                     <label for="task-input">
@@ -277,7 +242,6 @@
 
 
                 <!-- AREA -->
-
                 <div class="form-group">
 
                     <label for="area-input">
@@ -312,7 +276,6 @@
 
 
                 <!-- DEADLINE -->
-
                 <div class="form-group">
 
                     <label for="deadline-input">
@@ -339,8 +302,7 @@
         </section>
 
 
-        <!-- ================= PROGRESS ================= -->
-
+        <!-- PROGRESS -->
         <section class="progress-card">
 
             <div class="progress-header">
@@ -374,8 +336,7 @@
         </section>
 
 
-        <!-- ================= TASK LIST ================= -->
-
+        <!-- TASKS -->
         <section class="tasks-section">
 
             <div class="section-heading">
@@ -393,8 +354,6 @@
             </div>
 
 
-            <!-- CONTROLS -->
-
             <div class="task-controls">
 
                 <div class="filter-buttons">
@@ -402,6 +361,7 @@
                     <button
                         class="filter-btn active"
                         data-filter="all"
+                        type="button"
                     >
                         All
                     </button>
@@ -409,6 +369,7 @@
                     <button
                         class="filter-btn"
                         data-filter="pending"
+                        type="button"
                     >
                         Pending
                     </button>
@@ -416,6 +377,7 @@
                     <button
                         class="filter-btn"
                         data-filter="completed"
+                        type="button"
                     >
                         Completed
                     </button>
@@ -423,6 +385,7 @@
                     <button
                         class="filter-btn"
                         data-filter="overdue"
+                        type="button"
                     >
                         Overdue
                     </button>
@@ -460,8 +423,6 @@
             </div>
 
 
-            <!-- TASK LIST -->
-
             <div
                 id="task-list"
                 class="task-list"
@@ -472,6 +433,7 @@
                 id="empty-state"
                 class="empty-state"
             >
+
                 <div class="empty-icon">
                     ✓
                 </div>
@@ -481,6 +443,7 @@
                 <p>
                     Create your first task and start making progress.
                 </p>
+
             </div>
 
         </section>
@@ -488,8 +451,7 @@
     </main>
 
 
-    <!-- ================= EDIT MODAL ================= -->
-
+    <!-- EDIT MODAL -->
     <div
         id="edit-modal"
         class="modal"
@@ -500,11 +462,13 @@
             <div class="modal-header">
 
                 <div>
+
                     <span class="small-label">
                         EDIT TASK
                     </span>
 
                     <h2>Edit task</h2>
+
                 </div>
 
                 <button
@@ -535,8 +499,7 @@
                 </div>
 
 
-                <!-- EDIT AREA DROPDOWN -->
-
+                <!-- EDIT AREA -->
                 <div class="form-group">
 
                     <label for="edit-area">
@@ -610,17 +573,12 @@
     </div>
 
 
-    <!-- ================= FOOTER ================= -->
-
+    <!-- FOOTER -->
     <footer>
 
-        <p>
-            VTASKBASE
-        </p>
+        <p>VTASKBASE</p>
 
-        <span>
-            Built with focus.
-        </span>
+        <span>Built with focus.</span>
 
     </footer>
 
