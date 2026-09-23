@@ -13,6 +13,9 @@
     <title>VTASKBASE — Task Manager</title>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#080b10">
 
 </head>
 
@@ -786,6 +789,21 @@
 
 
     <script src="app.js"></script>
+    <script>
+
+    if ("serviceWorker" in navigator) {
+
+        window.addEventListener("load", function() {
+
+            navigator.serviceWorker.register(
+                "service-worker.js"
+            );
+
+        });
+
+    }
+
+</script>
 
 </body>
 
