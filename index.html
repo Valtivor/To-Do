@@ -1,158 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VTASKBASE - Task Manager</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VTASKBASE — Task Manager</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
     <div class="app">
 
-        <!-- HEADER -->
-        <header class="header">
-            <div>
-                <p class="brand">VTASKBASE</p>
 
-                <h1>Your tasks. Your progress. Your focus.</h1>
+        <!-- =========================
+             TOP BAR
+        ========================== -->
 
-                <p class="subtitle">
-                    Organize your day, stay focused, and get things done.
-                </p>
-            </div>
+        <header class="top-bar">
+
+            <a href="#" class="valtivor-link">
+
+                <img
+                    src="Valtivor Logo.png"
+                    alt="VALTIVOR"
+                    class="valtivor-logo"
+                >
+
+                <span>VALTIVOR</span>
+
+            </a>
+
+
+            <button
+                id="theme-btn"
+                class="theme-btn"
+                title="Change theme"
+            >
+                ☀
+            </button>
+
         </header>
 
 
-        <!-- HOW TO USE -->
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <header class="header">
+
+            <p class="brand">
+                VTASKBASE
+            </p>
+
+            <h1>
+                Your tasks. Your progress. Your focus.
+            </h1>
+
+            <p class="subtitle">
+                Organize your work, stay focused, and get things done.
+            </p>
+
+        </header>
+
+
+
+        <!-- =========================
+             HOW TO USE
+        ========================== -->
+
         <section class="how-to">
 
-            <div class="how-to-header">
-                <div>
-                    <span class="guide-label">GETTING STARTED</span>
+            <div class="section-intro">
 
-                    <h2>How to use VTASKBASE</h2>
+                <span class="guide-label">
+                    GETTING STARTED
+                </span>
 
-                    <p>
-                        Everything you need to manage your tasks in four simple steps.
-                    </p>
-                </div>
+                <h2>
+                    How to use VTASKBASE
+                </h2>
+
+                <p>
+                    Manage your tasks in four simple steps.
+                </p>
+
             </div>
 
 
             <div class="steps">
 
+
                 <div class="step">
-                    <div class="step-number">01</div>
+
+                    <div class="step-number">
+                        01
+                    </div>
 
                     <div>
-                        <h3>Create</h3>
+
+                        <h3>
+                            Create
+                        </h3>
 
                         <p>
                             Add something you need to get done.
                         </p>
+
                     </div>
+
                 </div>
 
 
                 <div class="step">
-                    <div class="step-number">02</div>
+
+                    <div class="step-number">
+                        02
+                    </div>
 
                     <div>
-                        <h3>Organize</h3>
+
+                        <h3>
+                            Organize
+                        </h3>
 
                         <p>
                             Choose an area, priority, and deadline.
                         </p>
+
                     </div>
+
                 </div>
 
 
                 <div class="step">
-                    <div class="step-number">03</div>
+
+                    <div class="step-number">
+                        03
+                    </div>
 
                     <div>
-                        <h3>Complete</h3>
+
+                        <h3>
+                            Complete
+                        </h3>
 
                         <p>
-                            Mark the task complete when you're finished.
+                            Mark the task complete when finished.
                         </p>
+
                     </div>
+
                 </div>
 
 
                 <div class="step">
-                    <div class="step-number">04</div>
+
+                    <div class="step-number">
+                        04
+                    </div>
 
                     <div>
-                        <h3>Track</h3>
+
+                        <h3>
+                            Track
+                        </h3>
 
                         <p>
-                            Watch your progress update automatically.
+                            Watch your productivity update automatically.
                         </p>
+
                     </div>
+
                 </div>
+
 
             </div>
 
         </section>
 
 
-        <!-- DASHBOARD -->
+
+        <!-- =========================
+             FOCUS CARD
+        ========================== -->
+
+        <section class="focus-card">
+
+            <div>
+
+                <span class="guide-label">
+                    TODAY'S FOCUS
+                </span>
+
+                <h2 id="focus-title">
+                    Stay focused.
+                </h2>
+
+                <p id="focus-text">
+                    Add your first task and start making progress.
+                </p>
+
+            </div>
+
+
+            <div class="focus-number">
+
+                <strong id="today-count">
+                    0
+                </strong>
+
+                <span>
+                    due today
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================== -->
+
         <section class="dashboard">
 
-            <div class="stat-card">
-                <span>Total Tasks</span>
-                <strong id="total-tasks">0</strong>
-            </div>
 
             <div class="stat-card">
-                <span>Completed</span>
-                <strong id="completed-tasks">0</strong>
+
+                <span>
+                    Total Tasks
+                </span>
+
+                <strong id="total-tasks">
+                    0
+                </strong>
+
             </div>
 
+
             <div class="stat-card">
-                <span>Pending</span>
-                <strong id="pending-tasks">0</strong>
+
+                <span>
+                    Completed
+                </span>
+
+                <strong id="completed-tasks">
+                    0
+                </strong>
+
             </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Pending
+                </span>
+
+                <strong id="pending-tasks">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    Overdue
+                </span>
+
+                <strong id="overdue-tasks">
+                    0
+                </strong>
+
+            </div>
+
 
         </section>
 
 
-        <!-- CREATE TASK -->
+
+        <!-- =========================
+             CREATE TASK
+        ========================== -->
+
         <section class="task-creator">
 
-            <div class="creator-heading">
-                <div>
-                    <span class="guide-label">TASK CREATOR</span>
+            <div class="section-intro">
 
-                    <h2>Create a task</h2>
+                <span class="guide-label">
+                    TASK CREATOR
+                </span>
 
-                    <p>
-                        Add a task and organize it the way you want.
-                    </p>
-                </div>
+                <h2>
+                    Create a task
+                </h2>
+
+                <p>
+                    Add a task and organize it your way.
+                </p>
+
             </div>
 
 
             <div class="task-form">
 
+
                 <div class="input-group task-name-input">
-                    <label for="task-input">Task</label>
+
+                    <label for="task-input">
+                        Task
+                    </label>
 
                     <input
                         type="text"
                         id="task-input"
                         placeholder="What needs to be done?"
                     >
+
                 </div>
 
 
                 <div class="input-group">
-                    <label for="category-input">Area</label>
+
+                    <label for="category-input">
+                        Area
+                    </label>
 
                     <select id="category-input">
 
@@ -197,11 +383,15 @@
                         </option>
 
                     </select>
+
                 </div>
 
 
                 <div class="input-group">
-                    <label for="priority-input">Priority</label>
+
+                    <label for="priority-input">
+                        Priority
+                    </label>
 
                     <select id="priority-input">
 
@@ -218,17 +408,23 @@
                         </option>
 
                     </select>
+
                 </div>
 
 
                 <div class="input-group">
-                    <label for="deadline-input">Deadline</label>
+
+                    <label for="deadline-input">
+                        Deadline
+                    </label>
 
                     <input
                         type="date"
                         id="deadline-input"
                     >
+
                 </div>
+
 
             </div>
 
@@ -240,64 +436,351 @@
         </section>
 
 
-        <!-- PROGRESS -->
+
+        <!-- =========================
+             PROGRESS
+        ========================== -->
+
         <section class="progress-section">
 
             <div class="progress-header">
 
                 <div>
-                    <span>Overall Progress</span>
+
+                    <span>
+                        Overall Progress
+                    </span>
 
                     <p>
-                        Keep going. Every completed task counts.
+                        Every completed task counts.
                     </p>
+
                 </div>
 
-                <strong id="progress-text">0%</strong>
+                <strong id="progress-text">
+                    0%
+                </strong>
 
             </div>
 
+
             <div class="progress-bar">
+
                 <div id="progress-fill"></div>
+
             </div>
 
         </section>
 
 
-        <!-- TASKS -->
-        <section class="tasks-section">
+
+        <!-- =========================
+             TASK SECTION
+        ========================== -->
+
+        <section class="task-section">
+
 
             <div class="section-heading">
 
                 <div>
-                    <span class="guide-label">YOUR WORK</span>
 
-                    <h2>Your Tasks</h2>
+                    <span class="guide-label">
+                        YOUR WORK
+                    </span>
+
+                    <h2>
+                        Your Tasks
+                    </h2>
+
                 </div>
 
-                <button id="clear-btn" class="clear-btn">
+
+                <button
+                    id="clear-btn"
+                    class="clear-btn"
+                >
                     Clear All
                 </button>
 
             </div>
 
 
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <span>
+                    🔎
+                </span>
+
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search your tasks..."
+                >
+
+            </div>
+
+
+
+            <!-- FILTERS -->
+
+            <div class="controls">
+
+
+                <select id="area-filter">
+
+                    <option value="All">
+                        All Areas
+                    </option>
+
+                    <option value="Coding">
+                        💻 Coding
+                    </option>
+
+                    <option value="School">
+                        🎓 School
+                    </option>
+
+                    <option value="Reading">
+                        📖 Reading
+                    </option>
+
+                    <option value="Faith">
+                        🙏 Faith
+                    </option>
+
+                    <option value="Fitness">
+                        🏋️ Fitness
+                    </option>
+
+                    <option value="Music">
+                        🎹 Music
+                    </option>
+
+                    <option value="Work">
+                        💼 Work
+                    </option>
+
+                    <option value="Projects">
+                        🚀 Projects
+                    </option>
+
+                    <option value="Personal">
+                        👤 Personal
+                    </option>
+
+                    <option value="Other">
+                        📌 Other
+                    </option>
+
+                </select>
+
+
+
+                <select id="priority-filter">
+
+                    <option value="All">
+                        All Priorities
+                    </option>
+
+                    <option value="High">
+                        🔴 High
+                    </option>
+
+                    <option value="Medium">
+                        🟡 Medium
+                    </option>
+
+                    <option value="Low">
+                        🟢 Low
+                    </option>
+
+                </select>
+
+
+
+                <select id="sort-filter">
+
+                    <option value="newest">
+                        Newest First
+                    </option>
+
+                    <option value="oldest">
+                        Oldest First
+                    </option>
+
+                    <option value="deadline">
+                        Deadline
+                    </option>
+
+                    <option value="priority">
+                        Priority
+                    </option>
+
+                    <option value="completed">
+                        Completed Last
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+
+            <!-- TASK LIST -->
+
             <ul id="task-list"></ul>
 
 
+
+            <!-- EMPTY STATE -->
+
             <div id="empty-message">
 
-                <div class="empty-icon">✓</div>
+                <div class="empty-icon">
+                    ✓
+                </div>
 
-                <h3>No tasks yet</h3>
+                <h3>
+                    No tasks found
+                </h3>
 
                 <p>
-                    Add your first task above and start making progress.
+                    Add a task or change your filters.
                 </p>
 
             </div>
 
+
         </section>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         EDIT MODAL
+    ========================== -->
+
+    <div
+        id="edit-modal"
+        class="modal"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="guide-label">
+                        EDIT TASK
+                    </span>
+
+                    <h2>
+                        Update your task
+                    </h2>
+
+                </div>
+
+                <button
+                    id="close-modal"
+                    class="close-modal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <input
+                type="text"
+                id="edit-task-input"
+                placeholder="Task name"
+            >
+
+
+            <select id="edit-category-input">
+
+                <option value="Coding">
+                    💻 Coding
+                </option>
+
+                <option value="School">
+                    🎓 School
+                </option>
+
+                <option value="Reading">
+                    📖 Reading
+                </option>
+
+                <option value="Faith">
+                    🙏 Faith
+                </option>
+
+                <option value="Fitness">
+                    🏋️ Fitness
+                </option>
+
+                <option value="Music">
+                    🎹 Music
+                </option>
+
+                <option value="Work">
+                    💼 Work
+                </option>
+
+                <option value="Projects">
+                    🚀 Projects
+                </option>
+
+                <option value="Personal">
+                    👤 Personal
+                </option>
+
+                <option value="Other">
+                    📌 Other
+                </option>
+
+            </select>
+
+
+            <select id="edit-priority-input">
+
+                <option value="Low">
+                    🟢 Low
+                </option>
+
+                <option value="Medium">
+                    🟡 Medium
+                </option>
+
+                <option value="High">
+                    🔴 High
+                </option>
+
+            </select>
+
+
+            <input
+                type="date"
+                id="edit-deadline-input"
+            >
+
+
+            <button
+                id="save-edit-btn"
+                class="save-edit-btn"
+            >
+                Save Changes
+            </button>
+
+        </div>
 
     </div>
 
@@ -305,5 +788,5 @@
     <script src="app.js"></script>
 
 </body>
-</html>
 
+</html>

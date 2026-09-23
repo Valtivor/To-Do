@@ -5,18 +5,84 @@
 }
 
 
+:root {
+    --bg: #080b10;
+    --card: #10151d;
+    --card-2: #0b1017;
+    --border: #202833;
+    --text: #ffffff;
+    --muted: #8d96a3;
+    --green: #35d07f;
+    --danger: #ff8b8b;
+    --yellow: #ffd66b;
+}
+
+
+body.light {
+    --bg: #f3f5f7;
+    --card: #ffffff;
+    --card-2: #f7f8fa;
+    --border: #dfe4e8;
+    --text: #10151d;
+    --muted: #68717d;
+}
+
+
 body {
     font-family: Arial, sans-serif;
-    background: #080b10;
-    color: white;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 
 .app {
     width: 92%;
     max-width: 1100px;
-    margin: 40px auto 70px;
+    margin: 25px auto 70px;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+
+.valtivor-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+.valtivor-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+
+.theme-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
 }
 
 
@@ -30,7 +96,7 @@ body {
 
 
 .brand {
-    color: #35d07f;
+    color: var(--green);
     font-size: 13px;
     font-weight: bold;
     letter-spacing: 4px;
@@ -46,8 +112,49 @@ body {
 
 
 .subtitle {
-    color: #8d96a3;
+    color: var(--muted);
     font-size: 15px;
+}
+
+
+/* =========================
+   COMMON
+========================= */
+
+.how-to,
+.task-creator,
+.progress-section,
+.task-section,
+.focus-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+}
+
+
+.section-intro {
+    margin-bottom: 20px;
+}
+
+
+.guide-label {
+    color: var(--green);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+
+.section-intro h2 {
+    font-size: 22px;
+    margin-top: 7px;
+}
+
+
+.section-intro p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 7px;
 }
 
 
@@ -56,35 +163,8 @@ body {
 ========================= */
 
 .how-to {
-    background: #10151d;
-    border: 1px solid #202833;
-    border-radius: 18px;
     padding: 25px;
     margin-bottom: 25px;
-}
-
-
-.guide-label {
-    color: #35d07f;
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-
-.how-to h2,
-.creator-heading h2,
-.section-heading h2 {
-    font-size: 22px;
-    margin-top: 7px;
-}
-
-
-.how-to-header p,
-.creator-heading p {
-    color: #7f8996;
-    font-size: 14px;
-    margin-top: 7px;
 }
 
 
@@ -92,20 +172,19 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-top: 22px;
 }
 
 
 .step {
-    background: #0b1017;
-    border: 1px solid #202833;
+    background: var(--card-2);
+    border: 1px solid var(--border);
     border-radius: 13px;
     padding: 18px;
 }
 
 
 .step-number {
-    color: #35d07f;
+    color: var(--green);
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 13px;
@@ -119,9 +198,55 @@ body {
 
 
 .step p {
-    color: #7f8996;
+    color: var(--muted);
     font-size: 13px;
     line-height: 1.5;
+}
+
+
+/* =========================
+   FOCUS
+========================= */
+
+.focus-card {
+    padding: 22px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.focus-card h2 {
+    margin-top: 7px;
+    font-size: 21px;
+}
+
+
+.focus-card p {
+    color: var(--muted);
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+
+.focus-number {
+    text-align: center;
+    padding: 10px 18px;
+    border-left: 1px solid var(--border);
+}
+
+
+.focus-number strong {
+    display: block;
+    color: var(--green);
+    font-size: 28px;
+}
+
+
+.focus-number span {
+    color: var(--muted);
+    font-size: 11px;
 }
 
 
@@ -131,41 +256,38 @@ body {
 
 .dashboard {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 15px;
     margin-bottom: 25px;
 }
 
 
 .stat-card {
-    background: #10151d;
-    border: 1px solid #202833;
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: 15px;
-    padding: 22px;
+    padding: 20px;
 }
 
 
 .stat-card span {
     display: block;
-    color: #8d96a3;
+    color: var(--muted);
     font-size: 13px;
     margin-bottom: 10px;
 }
 
 
 .stat-card strong {
-    font-size: 30px;
+    font-size: 29px;
 }
 
 
 /* =========================
-   TASK CREATOR
+   CREATE TASK
 ========================= */
 
 .task-creator {
-    background: #10151d;
-    border: 1px solid #202833;
-    border-radius: 18px;
     padding: 25px;
     margin-bottom: 25px;
 }
@@ -175,7 +297,6 @@ body {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 12px;
-    margin-top: 22px;
 }
 
 
@@ -187,7 +308,7 @@ body {
 
 
 .input-group label {
-    color: #8d96a3;
+    color: var(--muted);
     font-size: 12px;
 }
 
@@ -195,9 +316,9 @@ body {
 input,
 select {
     width: 100%;
-    background: #0b1017;
-    color: white;
-    border: 1px solid #28313d;
+    background: var(--card-2);
+    color: var(--text);
+    border: 1px solid var(--border);
     border-radius: 10px;
     padding: 14px;
     outline: none;
@@ -206,7 +327,7 @@ select {
 
 input:focus,
 select:focus {
-    border-color: #35d07f;
+    border-color: var(--green);
 }
 
 
@@ -217,7 +338,7 @@ select {
 
 #add-btn {
     margin-top: 15px;
-    background: #35d07f;
+    background: var(--green);
     color: #06100a;
     border: none;
     cursor: pointer;
@@ -237,9 +358,6 @@ select {
 ========================= */
 
 .progress-section {
-    background: #10151d;
-    border: 1px solid #202833;
-    border-radius: 15px;
     padding: 22px;
     margin-bottom: 25px;
 }
@@ -260,21 +378,21 @@ select {
 
 
 .progress-header p {
-    color: #727c89;
+    color: var(--muted);
     font-size: 12px;
     margin-top: 5px;
 }
 
 
 .progress-header strong {
-    color: #35d07f;
+    color: var(--green);
     font-size: 20px;
 }
 
 
 .progress-bar {
     height: 9px;
-    background: #202833;
+    background: var(--border);
     border-radius: 20px;
     overflow: hidden;
 }
@@ -283,19 +401,16 @@ select {
 #progress-fill {
     height: 100%;
     width: 0%;
-    background: #35d07f;
+    background: var(--green);
     transition: width 0.3s ease;
 }
 
 
 /* =========================
-   TASKS
+   TASK SECTION
 ========================= */
 
-.tasks-section {
-    background: #10151d;
-    border: 1px solid #202833;
-    border-radius: 18px;
+.task-section {
     padding: 25px;
 }
 
@@ -308,10 +423,16 @@ select {
 }
 
 
+.section-heading h2 {
+    margin-top: 7px;
+    font-size: 22px;
+}
+
+
 .clear-btn {
-    background: #252c36;
-    color: white;
-    border: none;
+    background: var(--card-2);
+    color: var(--text);
+    border: 1px solid var(--border);
     cursor: pointer;
     border-radius: 10px;
     padding: 11px 15px;
@@ -319,13 +440,42 @@ select {
 }
 
 
-.clear-btn:hover {
-    background: #343d49;
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0 14px;
+    margin-bottom: 12px;
+}
+
+
+.search-box input {
+    border: none;
+    padding-left: 0;
 }
 
 
 /* =========================
-   TASK ITEM
+   CONTROLS
+========================= */
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   TASK LIST
 ========================= */
 
 #task-list {
@@ -334,8 +484,8 @@ select {
 
 
 .task-item {
-    background: #0b1017;
-    border: 1px solid #202833;
+    background: var(--card-2);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 18px;
     margin-bottom: 12px;
@@ -380,8 +530,8 @@ select {
     font-size: 12px;
     padding: 5px 9px;
     border-radius: 20px;
-    background: #202833;
-    color: #c5ccd5;
+    background: var(--border);
+    color: var(--muted);
 }
 
 
@@ -403,15 +553,44 @@ select {
 }
 
 
+.overdue {
+    background: #4b2020;
+    color: #ff8b8b;
+}
+
+
+.due-today {
+    background: #493d1e;
+    color: #ffd66b;
+}
+
+
 .task-actions {
     display: flex;
-    gap: 8px;
+    gap: 7px;
+}
+
+
+.complete-btn,
+.edit-btn,
+.delete-btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 9px 11px;
+    font-weight: bold;
 }
 
 
 .complete-btn {
-    background: #35d07f;
+    background: var(--green);
     color: #06100a;
+}
+
+
+.edit-btn {
+    background: #263344;
+    color: white;
 }
 
 
@@ -421,29 +600,13 @@ select {
 }
 
 
-.complete-btn,
-.delete-btn {
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-weight: bold;
-}
-
-
-.complete-btn:hover,
-.delete-btn:hover {
-    opacity: 0.8;
-}
-
-
 /* =========================
    EMPTY STATE
 ========================= */
 
 #empty-message {
     text-align: center;
-    color: #727c89;
+    color: var(--muted);
     padding: 40px 10px 25px;
 }
 
@@ -459,13 +622,13 @@ select {
 
     border-radius: 50%;
     background: #183d2c;
-    color: #35d07f;
+    color: var(--green);
     font-weight: bold;
 }
 
 
 #empty-message h3 {
-    color: #c5ccd5;
+    color: var(--text);
     margin-bottom: 6px;
 }
 
@@ -476,7 +639,85 @@ select {
 
 
 /* =========================
-   TABLET
+   MODAL
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+.modal.show {
+    display: flex;
+}
+
+
+.modal-content {
+    width: 100%;
+    max-width: 450px;
+
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    padding: 25px;
+}
+
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+
+.modal-header h2 {
+    margin-top: 7px;
+}
+
+
+.close-modal {
+    background: transparent;
+    color: var(--text);
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+.modal-content input,
+.modal-content select {
+    margin-bottom: 10px;
+}
+
+
+.save-edit-btn {
+    width: 100%;
+    margin-top: 5px;
+
+    background: var(--green);
+    color: #06100a;
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 14px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* =========================
+   MOBILE
 ========================= */
 
 @media (max-width: 850px) {
@@ -486,22 +727,28 @@ select {
     }
 
 
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
     .task-form {
         grid-template-columns: 1fr 1fr;
+    }
+
+
+    .task-name-input {
+        grid-column: span 2;
     }
 
 }
 
 
-/* =========================
-   MOBILE
-========================= */
-
 @media (max-width: 600px) {
 
     .app {
         width: 94%;
-        margin: 25px auto 50px;
+        margin: 20px auto 50px;
     }
 
 
@@ -516,12 +763,32 @@ select {
 
 
     .dashboard {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
 
 
     .task-form {
         grid-template-columns: 1fr;
+    }
+
+
+    .task-name-input {
+        grid-column: span 1;
+    }
+
+
+    .controls {
+        grid-template-columns: 1fr;
+    }
+
+
+    .focus-card {
+        align-items: flex-start;
+    }
+
+
+    .focus-number {
+        padding-left: 15px;
     }
 
 
@@ -547,4 +814,3 @@ select {
     }
 
 }
-
