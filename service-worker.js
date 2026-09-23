@@ -1,59 +1,115 @@
 const CACHE_NAME = "vtaskbase-v1";
 
+
 const FILES_TO_CACHE = [
+
     "./",
     "./index.html",
     "./style.css",
     "./app.js",
     "./Valtivor Logo.png",
-    "./manifest.json"
+    "./manifest.json",
+    "./icons/icon-192.png",
+    "./icons/icon-512.png"
+
 ];
 
-self.addEventListener("install", function(event) {
 
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(function(cache) {
-                return cache.addAll(FILES_TO_CACHE);
-            })
-    );
+self.addEventListener(
+    "install",
+    function(event) {
 
-});
+        event.waitUntil(
 
-self.addEventListener("activate", function(event) {
+            caches.open(CACHE_NAME)
 
-    event.waitUntil(
-        caches.keys()
-            .then(function(cacheNames) {
+                .then(
+                    function(cache) {
 
-                return Promise.all(
-                    cacheNames
-                        .filter(function(cacheName) {
-                            return cacheName !== CACHE_NAME;
-                        })
-                        .map(function(cacheName) {
-                            return caches.delete(cacheName);
-                        })
-                );
+                        return cache.addAll(
+                            FILES_TO_CACHE
+                        );
 
-            })
-    );
+                    }
+                )
 
-});
+        );
 
-self.addEventListener("fetch", function(event) {
+    }
+);
 
-    event.respondWith(
-        caches.match(event.request)
-            .then(function(response) {
 
-                if (response) {
-                    return response;
-                }
+self.addEventListener(
+    "activate",
+    function(event) {
 
-                return fetch(event.request);
+        event.waitUntil(
 
-            })
-    );
+            caches.keys()
 
-});
+                .then(
+                    function(cacheNames) {
+
+                        return Promise.all(
+
+                            cacheNames
+
+                                .filter(
+                                    function(cacheName) {
+
+                                        return cacheName !==
+                                            CACHE_NAME;
+
+                                    }
+                                )
+
+                                .map(
+                                    function(cacheName) {
+
+                                        return caches.delete(
+                                            cacheName
+                                        );
+
+                                    }
+                                )
+
+                        );
+
+                    }
+                )
+
+        );
+
+    }
+);
+
+
+self.addEventListener(
+    "fetch",
+    function(event) {
+
+        event.respondWith(
+
+            caches.match(event.request)
+
+                .then(
+                    function(response) {
+
+                        if (response) {
+
+                            return response;
+
+                        }
+
+
+                        return fetch(
+                            event.request
+                        );
+
+                    }
+                )
+
+        );
+
+    }
+);

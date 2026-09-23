@@ -75,6 +75,13 @@ body {
 }
 
 
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
 .theme-btn {
     width: 40px;
     height: 40px;
@@ -83,6 +90,26 @@ body {
     background: var(--card);
     color: var(--text);
     cursor: pointer;
+}
+
+
+.install-btn {
+    display: none;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+
+.install-btn:hover {
+    border-color: var(--green);
+    color: var(--green);
 }
 
 
@@ -489,7 +516,6 @@ select {
     border-radius: 12px;
     padding: 18px;
     margin-bottom: 12px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -615,11 +641,9 @@ select {
     width: 42px;
     height: 42px;
     margin: 0 auto 12px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 50%;
     background: #183d2c;
     color: var(--green);
@@ -645,13 +669,10 @@ select {
 .modal {
     position: fixed;
     inset: 0;
-
     background: rgba(0, 0, 0, 0.7);
-
     display: none;
     align-items: center;
     justify-content: center;
-
     padding: 20px;
 }
 
@@ -664,11 +685,9 @@ select {
 .modal-content {
     width: 100%;
     max-width: 450px;
-
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 18px;
-
     padding: 25px;
 }
 
@@ -703,13 +722,10 @@ select {
 .save-edit-btn {
     width: 100%;
     margin-top: 5px;
-
     background: var(--green);
     color: #06100a;
-
     border: none;
     border-radius: 10px;
-
     padding: 14px;
     cursor: pointer;
     font-weight: bold;
@@ -811,6 +827,12 @@ select {
     .section-heading {
         align-items: flex-start;
         gap: 15px;
+    }
+
+
+    .install-btn {
+        padding: 9px 10px;
+        font-size: 11px;
     }
 
 }

@@ -13,9 +13,11 @@
     <title>VTASKBASE — Task Manager</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
 
-<meta name="theme-color" content="#080b10">
+    <meta name="theme-color" content="#080b10">
 
 </head>
 
@@ -44,13 +46,26 @@
             </a>
 
 
-            <button
-                id="theme-btn"
-                class="theme-btn"
-                title="Change theme"
-            >
-                ☀
-            </button>
+            <div class="top-actions">
+
+                <button
+                    id="install-btn"
+                    class="install-btn"
+                    title="Install VTASKBASE"
+                >
+                    📲 Install
+                </button>
+
+
+                <button
+                    id="theme-btn"
+                    class="theme-btn"
+                    title="Change theme"
+                >
+                    ☀
+                </button>
+
+            </div>
 
         </header>
 
@@ -582,7 +597,6 @@
                 </select>
 
 
-
                 <select id="priority-filter">
 
                     <option value="All">
@@ -602,7 +616,6 @@
                     </option>
 
                 </select>
-
 
 
                 <select id="sort-filter">
@@ -710,62 +723,25 @@
 
             <select id="edit-category-input">
 
-                <option value="Coding">
-                    💻 Coding
-                </option>
-
-                <option value="School">
-                    🎓 School
-                </option>
-
-                <option value="Reading">
-                    📖 Reading
-                </option>
-
-                <option value="Faith">
-                    🙏 Faith
-                </option>
-
-                <option value="Fitness">
-                    🏋️ Fitness
-                </option>
-
-                <option value="Music">
-                    🎹 Music
-                </option>
-
-                <option value="Work">
-                    💼 Work
-                </option>
-
-                <option value="Projects">
-                    🚀 Projects
-                </option>
-
-                <option value="Personal">
-                    👤 Personal
-                </option>
-
-                <option value="Other">
-                    📌 Other
-                </option>
+                <option value="Coding">💻 Coding</option>
+                <option value="School">🎓 School</option>
+                <option value="Reading">📖 Reading</option>
+                <option value="Faith">🙏 Faith</option>
+                <option value="Fitness">🏋️ Fitness</option>
+                <option value="Music">🎹 Music</option>
+                <option value="Work">💼 Work</option>
+                <option value="Projects">🚀 Projects</option>
+                <option value="Personal">👤 Personal</option>
+                <option value="Other">📌 Other</option>
 
             </select>
 
 
             <select id="edit-priority-input">
 
-                <option value="Low">
-                    🟢 Low
-                </option>
-
-                <option value="Medium">
-                    🟡 Medium
-                </option>
-
-                <option value="High">
-                    🔴 High
-                </option>
+                <option value="Low">🟢 Low</option>
+                <option value="Medium">🟡 Medium</option>
+                <option value="High">🔴 High</option>
 
             </select>
 
@@ -789,21 +765,6 @@
 
 
     <script src="app.js"></script>
-    <script>
-
-    if ("serviceWorker" in navigator) {
-
-        window.addEventListener("load", function() {
-
-            navigator.serviceWorker.register(
-                "service-worker.js"
-            );
-
-        });
-
-    }
-
-</script>
 
 </body>
 

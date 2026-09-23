@@ -68,6 +68,9 @@ const focusText =
 const themeBtn =
     document.getElementById("theme-btn");
 
+const installBtn =
+    document.getElementById("install-btn");
+
 
 // ===============================
 // EDIT ELEMENTS
@@ -194,8 +197,6 @@ function getVisibleTasks() {
         [...tasks];
 
 
-    // SEARCH
-
     const search =
         searchInput.value
             .toLowerCase()
@@ -218,8 +219,6 @@ function getVisibleTasks() {
     }
 
 
-    // AREA
-
     if (areaFilter.value !== "All") {
 
         visibleTasks =
@@ -235,8 +234,6 @@ function getVisibleTasks() {
     }
 
 
-    // PRIORITY
-
     if (priorityFilter.value !== "All") {
 
         visibleTasks =
@@ -251,8 +248,6 @@ function getVisibleTasks() {
 
     }
 
-
-    // SORT
 
     const sort =
         sortFilter.value;
@@ -307,9 +302,7 @@ function getVisibleTasks() {
         const priorityValue = {
 
             High: 1,
-
             Medium: 2,
-
             Low: 3
 
         };
@@ -387,10 +380,6 @@ function renderTasks() {
             }
 
 
-            // =========================
-            // TASK INFO
-            // =========================
-
             const taskInfo =
                 document.createElement("div");
 
@@ -415,10 +404,6 @@ function renderTasks() {
                 "task-details";
 
 
-            // =========================
-            // PRIORITY
-            // =========================
-
             const priorityBadge =
                 document.createElement("span");
 
@@ -430,10 +415,6 @@ function renderTasks() {
                 task.priority + " Priority";
 
 
-            // =========================
-            // AREA
-            // =========================
-
             const categoryBadge =
                 document.createElement("span");
 
@@ -443,10 +424,6 @@ function renderTasks() {
             categoryBadge.textContent =
                 task.category;
 
-
-            // =========================
-            // DEADLINE
-            // =========================
 
             const deadlineBadge =
                 document.createElement("span");
@@ -513,18 +490,12 @@ function renderTasks() {
             );
 
 
-            // =========================
-            // ACTIONS
-            // =========================
-
             const actions =
                 document.createElement("div");
 
             actions.className =
                 "task-actions";
 
-
-            // COMPLETE
 
             const completeBtn =
                 document.createElement("button");
@@ -553,8 +524,6 @@ function renderTasks() {
             );
 
 
-            // EDIT
-
             const editBtn =
                 document.createElement("button");
 
@@ -574,8 +543,6 @@ function renderTasks() {
                 }
             );
 
-
-            // DELETE
 
             const deleteBtn =
                 document.createElement("button");
@@ -783,10 +750,6 @@ function updateDashboard() {
         overdue;
 
 
-    // =========================
-    // PROGRESS
-    // =========================
-
     let progress = 0;
 
 
@@ -807,10 +770,6 @@ function updateDashboard() {
     progressFill.style.width =
         progress + "%";
 
-
-    // =========================
-    // TODAY'S FOCUS
-    // =========================
 
     todayCount.textContent =
         dueToday;
@@ -1117,6 +1076,102 @@ if (savedTheme === "light") {
         "☾";
 
 }
+
+
+// ===============================
+// PWA INSTALL
+// ===============================
+
+let deferredPrompt = null;
+
+
+if (installBtn) {
+
+    installBtn.style.display =
+        "none";
+
+}
+
+
+window.addEventListener(
+    "beforeinstallprompt",
+    function(event) {
+
+        event.preventDefault();
+
+        deferredPrompt =
+            event;
+
+
+        if (installBtn) {
+
+            installBtn.style.display =
+                "block";
+
+        }
+
+    }
+);
+
+
+if (installBtn) {
+
+    installBtn.addEventListener(
+        "click",
+        async function() {
+
+            if (!deferredPrompt) {
+
+                alert(
+                    "VTASKBASE cannot be installed right now. Please open it in Chrome and try again."
+                );
+
+                return;
+
+            }
+
+
+            deferredPrompt.prompt();
+
+
+            const result =
+                await deferredPrompt.userChoice;
+
+
+            if (
+                result.outcome ===
+                "accepted"
+            ) {
+
+                installBtn.style.display =
+                    "none";
+
+            }
+
+
+            deferredPrompt = null;
+
+        }
+    );
+
+}
+
+
+window.addEventListener(
+    "appinstalled",
+    function() {
+
+        if (installBtn) {
+
+            installBtn.style.display =
+                "none";
+
+        }
+
+        deferredPrompt = null;
+
+    }
+);
 
 
 // ===============================
